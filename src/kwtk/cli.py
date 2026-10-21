@@ -3,6 +3,7 @@
     kwtk validate CONFIG.yaml [...]
     kwtk inputs import --dataset PATH    refresh inputs/dataset/ from a dataset build
     kwtk inputs verify                   check inputs/dataset/ against its manifest
+    kwtk inputs demand                   rebuild the hourly demand reconstruction
 """
 
 import argparse
@@ -22,10 +23,17 @@ def main() -> None:
     imp = isub.add_parser("import", help="copy a local dataset build into inputs/dataset/")
     imp.add_argument("--dataset", required=True, type=Path, help="a clone of mizan-kuwait-electricity-data after `make`")
     isub.add_parser("verify", help="check every file against MANIFEST.yaml")
+    isub.add_parser("demand", help="rebuild inputs/demand/ (hourly gross load, a reconstruction)")
     args = p.parse_args()
 
     if args.cmd == "inputs":
         from .inputs import dataset
+        if args.action == "demand":
+            from .inputs import demand
+            m = demand.build()
+            for v in m["validation_peak_days"]:
+                print(f"held-out {v['day']}: MAPE {v['mape']:.1%}, worst hour {v['max_abs_error']:.1%}")
+            return
         if args.action == "import":
             m = dataset.import_snapshot(args.dataset)
             print(f"imported dataset commit {m['commit'][:12]}: {', '.join(m['files'])}")

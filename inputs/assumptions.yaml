@@ -17,3 +17,4 @@ assumptions:
   degradation.pv_annual:               {value: null, unit: "% per year", status: open, source: null}
   degradation.pv_first_year:           {value: null, unit: "%", status: open, source: null}
   wacc.kuwait_ipp:                     {value: null, unit: "real, fraction", status: open, source: null, note: "Kuwait IPP real WACC"}
+  demand.base_shape_nonsummer:         {value: "inputs/demand/kuwait-gross-load-reconstructed.json#fit.params (c1, s1, c2, s2)", unit: "two-harmonic diurnal shape, fraction of the monthly scale", status: proxy, source: "the non-cooling component of the demand model, fitted to May-July daily data only (docs/decisions.md D2, D3)", note: "no sub-daily Kuwaiti load is published for October-April; the fitted shape has a 03:00 maximum that is probably an artefact of fitting on summer days; replace with MEW hourly data when obtained"}

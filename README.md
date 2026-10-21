@@ -10,6 +10,12 @@ under Kuwaiti conditions, then what it does to the national system.
 - the configuration schema (`kuwait-plant/0.1`) with a validator that reports
   problems as sentences: `kwtk validate configs/examples/*.yaml`
 - the assumptions file, with every entry still open until it is sourced
+- the hourly demand reconstruction (`inputs/demand/`, labelled as a reconstruction):
+  gross system load 2013–2024 and May–July 2025, matching every printed monthly
+  energy and annual peak, validated against MEW's four printed peak-day curves
+  (MAPE 3.8–4.9%); method, results and known defects in
+  [docs/demand-reconstruction.md](docs/demand-reconstruction.md); decisions in
+  [docs/decisions.md](docs/decisions.md)
 - the measured inputs: a snapshot of the Kuwait Electricity Open Dataset in
   `inputs/dataset/`, unchanged and pinned to a dataset commit by `MANIFEST.yaml`
   (`kwtk inputs verify`; refresh with `kwtk inputs import --dataset PATH`). Loaders in
@@ -19,7 +25,7 @@ under Kuwaiti conditions, then what it does to the national system.
 - a gap analysis of PyPSA-Earth's Kuwait defaults (in the Mizan-Energy repository,
   `research-src/energy-toolkit/GAP_ANALYSIS.md`)
 
-The hourly demand reconstruction, weather and resource inputs, the evaluation engines
+Resource inputs (Atlite), the evaluation engines
 (pvlib, PySAM, PyPSA, water), notebooks and validation come next, in that order.
 
 ## Layout
@@ -54,5 +60,12 @@ data CC BY 4.0 / CC0; used as a separate workflow, none of its code is copied he
 [WaterTAP](https://github.com/watertap-org/watertap) (BSD-3). Their licences apply to
 their code. Our code is MIT ([LICENSE](LICENSE)); our inputs and documentation are
 CC BY 4.0 ([LICENSE-DATA](LICENSE-DATA)). Cite with [CITATION.cff](CITATION.cff).
+
+Data in `inputs/`: the Kuwait Electricity Open Dataset (CC BY 4.0); ERA5
+temperature, "generated using Copernicus Climate Change Service information"
+(Hersbach et al., ERA5 hourly time-series data on single levels from 1940 to
+present, C3S Climate Data Store; Copernicus licence), neither the European
+Commission nor ECMWF is responsible for any use of it; WorldPop 2020 constrained,
+UN-adjusted population (CC BY 4.0, worldpop.org).
 
 Mizan builds and maintains this. <https://mizan-energy.com>

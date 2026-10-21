@@ -10,13 +10,14 @@ dependencies = [
   "pyyaml==6.0.2",
   "pandas==2.3.1",
   "numpy==2.2.6",
+  "scipy==1.16.1",
 ]
 
 [project.optional-dependencies]
 pv = ["pvlib==0.13.0"]
 econ = ["nrel-pysam==7.0.0"]
 system = ["pypsa==0.35.1", "highspy==1.11.0"]
-resource = ["atlite==0.4.1", "cdsapi==0.7.6"]
+resource = ["atlite==0.4.1", "cdsapi==0.7.6", "rasterio==1.4.3"]
 water = ["watertap==1.4.0"]
 dist = ["pandapower==3.1.2"]
 

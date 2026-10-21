@@ -1,0 +1,104 @@
+{
+  "label": "RECONSTRUCTION: hourly gross system load modelled from monthly energy, annual peaks and ERA5 temperature; not a measurement",
+  "decisions": [
+    "D1",
+    "D2",
+    "D3"
+  ],
+  "monthly_energy_series": [
+    "csb-env",
+    "mew-mb"
+  ],
+  "fit": {
+    "params": {
+      "c1": -0.039098060736269855,
+      "s1": 0.00891381803222643,
+      "c2": 0.0067707214893732515,
+      "s2": 0.08145984327148871,
+      "b_per_K": 0.04644287799914059,
+      "t0_c": 28.11644077358892,
+      "tau_h": 23.216198622743104,
+      "weekend": -0.011353075508451063,
+      "phi": 0.5015712670749128
+    },
+    "fit_months": [
+      "2024-05",
+      "2024-06",
+      "2025-05",
+      "2025-06",
+      "2025-07"
+    ],
+    "fit_days": 153,
+    "rmse_relative": {
+      "daily_max": 0.034653380987915434,
+      "daily_min": 0.03631270948632292,
+      "daily_energy": 0.017581919908026745,
+      "load_at_printed_peak_time": 0.03191983770797382,
+      "load_at_printed_min_time": 0.014056054910720123
+    }
+  },
+  "peak_stretch_k": {
+    "2013": 0.7770827386004229,
+    "2014": 0.7757948218568098,
+    "2015": 0.787949653032741,
+    "2016": 0.6479608384809772,
+    "2017": 0.5628532835269024,
+    "2018": 0.7796885244602889,
+    "2019": 0.7467308071409995,
+    "2020": 0.7770609351516353,
+    "2021": 0.8240587321654671,
+    "2022": 0.7491657499010085,
+    "2023": 0.7363938727618144
+  },
+  "validation_peak_days": [
+    {
+      "source_id": "mew-yb-2020",
+      "day": "2020-07-30",
+      "hours": 25,
+      "mape": 0.048992250287158784,
+      "max_abs_error": 0.12808351275418592,
+      "printed_peak_hour": 15,
+      "model_peak_hour": 14,
+      "printed_min_hour": 6,
+      "model_min_hour": 7
+    },
+    {
+      "source_id": "mew-yb-2021",
+      "day": "2021-07-28",
+      "hours": 25,
+      "mape": 0.03822423536128419,
+      "max_abs_error": 0.09655671040800101,
+      "printed_peak_hour": 15,
+      "model_peak_hour": 15,
+      "printed_min_hour": 6,
+      "model_min_hour": 7
+    },
+    {
+      "source_id": "mew-yb-2022",
+      "day": "2022-08-09",
+      "hours": 25,
+      "mape": 0.03797031503549616,
+      "max_abs_error": 0.1069840230153072,
+      "printed_peak_hour": 14,
+      "model_peak_hour": 15,
+      "printed_min_hour": 6,
+      "model_min_hour": 7
+    },
+    {
+      "source_id": "mew-yb-2023",
+      "day": "2023-08-02",
+      "hours": 25,
+      "mape": 0.039740828017810675,
+      "max_abs_error": 0.10180453644483707,
+      "printed_peak_hour": 14,
+      "model_peak_hour": 15,
+      "printed_min_hour": 6,
+      "model_min_hour": 7
+    }
+  ],
+  "years_without_printed_peak": [
+    2024,
+    2025
+  ],
+  "assumption_nonsummer_shape": "demand.base_shape_nonsummer"
+}
