@@ -41,8 +41,9 @@ is used, it is what OpenStreetMap and PyPSA-Earth already publish, aggregated to
 
 Built on [pvlib](https://github.com/pvlib/pvlib-python) (BSD-3),
 [NREL SAM / PySAM](https://github.com/NREL/pysam) (BSD-3),
-[PyPSA](https://github.com/PyPSA/PyPSA) and
-[PyPSA-Earth](https://github.com/pypsa-meets-earth/pypsa-earth) (MIT, AGPL for parts),
+[PyPSA](https://github.com/PyPSA/PyPSA) (MIT),
+[PyPSA-Earth](https://github.com/pypsa-meets-earth/pypsa-earth) (code AGPL-3.0-or-later,
+data CC BY 4.0 / CC0; used as a separate workflow, none of its code is copied here),
 [atlite](https://github.com/PyPSA/atlite) (MIT) and, optionally,
 [WaterTAP](https://github.com/watertap-org/watertap) (BSD-3). Their licences apply to
 their code. Our code is MIT ([LICENSE](LICENSE)); our inputs and documentation are
