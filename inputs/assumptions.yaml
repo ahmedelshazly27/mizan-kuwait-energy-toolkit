@@ -1,0 +1,19 @@
+# Every number the toolkit uses that is not measured Kuwaiti data. One entry per
+# assumption, each with its value, unit, source and status:
+#   sourced   a Kuwaiti source gives it
+#   proxy     no Kuwaiti source exists; the named proxy is used, and why
+#   open      not yet decided; evaluation refuses to run while a used entry is open
+# Plant configurations refer to entries as assumption:<key>.
+assumptions:
+  albedo.desert:                       {value: null, unit: fraction, status: open, source: null, note: "ground albedo for Kuwaiti desert sites"}
+  thermal.pvsyst_freestanding:         {value: null, unit: "model id + U-values", status: open, source: null, note: "module temperature model and coefficients for Kuwaiti summer"}
+  storage.hvac_load:                   {value: null, unit: kW per MWh, status: open, source: null, note: "battery auxiliary cooling load at Kuwaiti ambient temperatures"}
+  ro.specific_energy_seawater:         {value: null, unit: kWh/m3, status: open, source: null, note: "Gulf seawater RO, plant-level specific energy"}
+  cleaning.effectiveness:              {value: null, unit: fraction, status: open, source: null, note: "share of accumulated soiling removed per cleaning, by method"}
+  cleaning.cost:                       {value: null, unit: USD per MWp per cleaning, status: open, source: null, note: "by method"}
+  availability.plant:                  {value: null, unit: fraction, status: open, source: null}
+  availability.inverter:               {value: null, unit: fraction, status: open, source: null}
+  availability.storage:                {value: null, unit: fraction, status: open, source: null}
+  degradation.pv_annual:               {value: null, unit: "% per year", status: open, source: null}
+  degradation.pv_first_year:           {value: null, unit: "%", status: open, source: null}
+  wacc.kuwait_ipp:                     {value: null, unit: "real, fraction", status: open, source: null, note: "Kuwait IPP real WACC"}

@@ -1,0 +1,61 @@
+# Shows the format only. Every number here is a placeholder, not an input or a
+# description of a real plant. Inline module and inverter values are illustrative.
+schema: kuwait-plant/0.1
+id: schema-example-pv-storage
+name: Schema example, PV with storage
+status: example
+site:
+  location: {lat: 29.2, lon: 47.0}
+  grid_connection: {point: example-poi, voltage_kv: 132, export_limit_mw: 100}
+pv:
+  arrays:
+    - id: a1
+      dc_capacity_mwp: 120.0
+      module:
+        inline:
+          stc_power_w: 600
+          technology: placeholder
+          vmp_v: 45
+          imp_a: 13.3
+          voc_v: 53
+          isc_a: 14.1
+          temp_coeff_pmax_pct_per_c: -0.30
+          bifaciality: 0.7
+          source: "placeholder values for the schema example"
+      mounting: {type: single_axis, axis_azimuth_deg: 180, max_angle_deg: 60}
+      layout: {gcr: 0.33, modules_per_string: 25, strings: 8000}
+inverters:
+  topology: central
+  dc_ac_ratio: 1.2
+  units:
+    - array: a1
+      count: 25
+      inline:
+        ac_rating_kva: 4000
+        efficiency_curve: [[0.1, 0.96], [0.5, 0.985], [1.0, 0.98]]
+        source: "placeholder values for the schema example"
+storage:
+  blocks:
+    - id: b1
+      coupling: ac
+      power_mw: 50
+      energy_mwh: 200
+      chemistry: lfp
+      round_trip_efficiency: 0.85
+      soc_limits: {min: 0.05, max: 0.95}
+      degradation: {model: linear, calendar_pct_per_year: 1.0}
+controls:
+  strategy: export_limit
+om:
+  cleaning:
+    method: robotic_dry
+    schedule: {type: interval, interval_days: 7}
+economics:
+  base_year: 2026
+  life_years: 25
+  capex: {modules_usd_per_wp: 0.1}
+  opex: {fixed_usd_per_kwdc_year: 7}
+  finance: {structure: ppa, wacc_real: assumption:wacc.kuwait_ipp}
+  revenue: {ppa_price_fils_per_kwh: 4.0}
+evaluation:
+  years: [2023]
