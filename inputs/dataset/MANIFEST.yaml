@@ -1,0 +1,23 @@
+dataset: https://github.com/ahmedelshazly27/mizan-kuwait-electricity-data
+commit: 37ad2eea1e98309950f12035940a98837d9002df
+imported: '2026-10-21'
+licence: CC BY 4.0 (Kuwait Electricity Open Dataset, Mizan Energy)
+files:
+  observations.csv.gz:
+    sha256: 9dcbf3b124075fc62f5aff489e371589c837a6f57d6df6e34a4ddc8618510533
+    source_sha256: b78b31d5d76a527e40d79bf7e810ddebb9e0bec04c407215f30cd9c4cd97a3fc
+  plants.csv:
+    sha256: 3939a1b3d6357f449eac80987ae0101310ffc32284fcfe85ccb73ceb3428985f
+    source_sha256: 3939a1b3d6357f449eac80987ae0101310ffc32284fcfe85ccb73ceb3428985f
+  sources.csv:
+    sha256: f767606d9034ff913b59ce6d3d01d8da4560331098953c3cd805c4ed60b6fcb1
+    source_sha256: f767606d9034ff913b59ce6d3d01d8da4560331098953c3cd805c4ed60b6fcb1
+  source_tables.csv:
+    sha256: 939066ddb48d58a6acea20bd45d934fe6fd3b5d8ae0798e4f4dfecc358911837
+    source_sha256: 939066ddb48d58a6acea20bd45d934fe6fd3b5d8ae0798e4f4dfecc358911837
+  variables.csv:
+    sha256: c107c31289cbd1a46691b62506bef01e055101106be574062b7e2b0b889df039
+    source_sha256: c107c31289cbd1a46691b62506bef01e055101106be574062b7e2b0b889df039
+  conflicts.csv:
+    sha256: c484507e44c4a9043856585823a4791fb7566b27d4f2c2b05f028cbf1c910a98
+    source_sha256: c484507e44c4a9043856585823a4791fb7566b27d4f2c2b05f028cbf1c910a98

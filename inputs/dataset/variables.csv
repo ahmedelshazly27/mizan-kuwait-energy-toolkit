@@ -1,0 +1,29 @@
+id,unit,en,ar
+generation_gross,MWh,Electricity generated (gross),الطاقة الكهربائية المولدة
+station_use,MWh,Electricity consumed within the stations,الطاقة الكهربائية المستهلكة داخل المحطات
+sent_out,MWh,Electricity sent out from the stations,الطاقة الكهربائية المصدرة من المحطات
+sent_out_net_total,MWh,Net electricity sent out (all stations),صافي الطاقة الكهربائية المصدرة
+installed_capacity,MW,Installed capacity,السعة المركبة
+operating_year,year,First operating year as printed,سنة التشغيل
+fuel_use,,Fuel consumed by the station (unit depends on fuel),استهلاك المحطات من الوقود
+desalination_use,MWh,Electricity used for water desalination (RO units and boilers),الطاقة الكهربائية المستهلكة لتحلية المياه
+max_load,MW,Maximum load in the year,الحمل الأقصى
+min_load,MW,Minimum load in the year,الحمل الأدنى
+peak_load,MW,System peak load,الحمل الأقصى للنظام
+peak_load_date,text,Date of the system peak as printed (format varies by row; never parsed),تاريخ الحمل الأقصى
+temperature_at_peak,degC,Maximum temperature at peak load,درجة الحرارة القصوى عند الحمل الأقصى
+humidity_at_peak,percent,Maximum relative humidity at peak load,الرطوبة النسبية القصوى عند الحمل الأقصى
+consumption,MWh,Electricity consumption by sector (UNdata; secondary),استهلاك الكهرباء حسب القطاع
+un_gross_production,MWh,UNdata: gross production,
+un_net_production,MWh,UNdata: net production,
+un_own_use_power_plants,MWh,"UNdata: own use by electricity, heat and CHP plants",
+un_losses,MWh,UNdata: losses,
+un_imports,MWh,UNdata: imports,
+un_exports,MWh,UNdata: exports,
+un_final_consumption,MWh,UNdata: final energy consumption,
+un_energy_industries_own_use,MWh,UNdata: energy industries own use,
+un_own_use_refineries,MWh,UNdata: own use by oil refineries,
+un_own_use_oil_gas,MWh,UNdata: own use by oil and gas extraction,
+desalination_use_detail,MWh,Breakdown of a desalination-use column (CSB 2018 only); not a separate deduction,
+unit_capacity,MW,Installed capacity of a generating unit,القدرة المركبة للوحدة
+unit_commissioning_year,year,Year of the unit's date of commissioning; value_printed keeps the full date as printed,سنة تشغيل الوحدة

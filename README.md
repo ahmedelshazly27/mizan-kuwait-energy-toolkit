@@ -10,11 +10,17 @@ under Kuwaiti conditions, then what it does to the national system.
 - the configuration schema (`kuwait-plant/0.1`) with a validator that reports
   problems as sentences: `kwtk validate configs/examples/*.yaml`
 - the assumptions file, with every entry still open until it is sourced
+- the measured inputs: a snapshot of the Kuwait Electricity Open Dataset in
+  `inputs/dataset/`, unchanged and pinned to a dataset commit by `MANIFEST.yaml`
+  (`kwtk inputs verify`; refresh with `kwtk inputs import --dataset PATH`). Loaders in
+  `kwtk.inputs.dataset` return the dataset's own rows; every series call names its
+  source, and open dataset conflicts are reported, never resolved. The fleet is the
+  unit list from the MEW yearbook station pages (2023 edition: 117 units, 20,250 MW)
 - a gap analysis of PyPSA-Earth's Kuwait defaults (in the Mizan-Energy repository,
   `research-src/energy-toolkit/GAP_ANALYSIS.md`)
 
-The evaluation engines (pvlib, PySAM, PyPSA, water), the Kuwaiti inputs, notebooks and
-validation come next, in that order.
+The hourly demand reconstruction, weather and resource inputs, the evaluation engines
+(pvlib, PySAM, PyPSA, water), notebooks and validation come next, in that order.
 
 ## Layout
 

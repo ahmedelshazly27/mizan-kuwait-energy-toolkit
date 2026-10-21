@@ -1,0 +1,134 @@
+source_id,table_no,title_en,title_ar,unit_printed,sheet,pages_pdf
+mew-yb-2020,capacity-history,Capacity During ( M.W ) 1991 - 2020,,MW,,[52]
+mew-yb-2020,generation-history,Power Stations' Generation of Electrical Energy (Million kWh) During 1991 - 2020,,Million kWh,,[59]
+mew-yb-2020,energy-history,Electrical Energy Exported Through Ministry's Systems,,Million kWh,,[61]
+mew-yb-2020,load-history,Development of Maximum & Minimum Loads (MW,,MW,,[66]
+mew-yb-2020,peak-history,and Humidity During 1991 - 2020,,MW,,[70]
+mew-yb-2020,generation-monthly,Generation Of Electrical Energy (Million WH) During 2020,,Million WH,,[161]
+mew-yb-2020,station-use-monthly,Auxiliary Units Consumed By Power Stations' (Million Wh) During 2020,,Million Wh,,[167]
+mew-yb-2020,net-export-monthly,Net Export Of Electrical Energy (Million WH) During 2020,,Million WH,,[176]
+mew-yb-2020,station-units,"Station pages: units, date of commissioning and installed capacity",,MW,,"[33, 35, 36, 37, 38, 39, 40, 41, 42, 45, 46, 50]"
+mew-yb-2021,capacity-history,Capacity ( M.W ) During 1992 - 2021,,MW,,[49]
+mew-yb-2021,generation-history,Power Stations' Generation of Electrical Energy (Million kWh) During 1992 - 2021,,Million kWh,,[56]
+mew-yb-2021,energy-history,Electrical Energy Exported Through Ministry's Systems,,Million kWh,,[58]
+mew-yb-2021,load-history,Development of Maximum & Minimum Loads (MW,,MW,,[63]
+mew-yb-2021,peak-history,and Humidity During 1992 - 2021,,MW,,[67]
+mew-yb-2021,generation-monthly,Generation Of Electrical Energy (Million WH) During 2021,,Million WH,,[154]
+mew-yb-2021,station-use-monthly,Auxiliary Units Consumed By Power Stations' (Million Wh) During 2021,,Million Wh,,[160]
+mew-yb-2021,net-export-monthly,Net Export Of Electrical Energy (Million WH) During 2021,,Million WH,,[169]
+mew-yb-2021,station-units,"Station pages: units, date of commissioning and installed capacity",,MW,,"[30, 32, 33, 34, 35, 36, 37, 38, 39, 42, 43, 47]"
+mew-yb-2022,capacity-history,Capacity ( M.W ) During 1993 - 2022,,MW,,[55]
+mew-yb-2022,generation-history,Power Stations' Generation of Electrical Energy (M.kWh) During 1993 - 2022,,M.kWh,,[62]
+mew-yb-2022,energy-history,Electrical Energy Exported Through Ministry's Systems,,M. kWh,,[65]
+mew-yb-2022,load-history,Development of Maximum & Minimum Loads (MW,,MW,,[70]
+mew-yb-2022,peak-history,and Humidity During 1993 - 2022,,MW,,[74]
+mew-yb-2022,generation-monthly,Generation Of Electrical Energy (Million WH) During 2022,,Million WH,,[168]
+mew-yb-2022,station-use-monthly,Auxiliary Units Consumed By Power Stations' (Million Wh) During 2022,,Million Wh,,[174]
+mew-yb-2022,net-export-monthly,Net Export Of Electrical Energy (Million WH) During 2022,,Million WH,,[183]
+mew-yb-2022,station-units,"Station pages: units, date of commissioning and installed capacity",,MW,,"[37, 39, 40, 41, 42, 43, 44, 45, 46, 49, 50, 53]"
+mew-yb-2023,capacity-history,Development of Power Station's Installed Capacity ( M.W ) During 1994 - 2023,,MW,,[52]
+mew-yb-2023,generation-history,Power Stations’ Generation of Electrical Energy (Million kWh) During 1994 - 2023,,Million kWh,,[59]
+mew-yb-2023,energy-history,Electrical Energy Exported Through Ministry’s Systems,,Million kWh,,[62]
+mew-yb-2023,load-history,Development of Maximum & Minimum Loads (MW) During 1994 - 2023,,MW,,[67]
+mew-yb-2023,peak-history,"System Peak Load, Maximum Temperature",,MW,,[71]
+mew-yb-2023,generation-monthly,Generation Of Electrical Energy (Million WH) During 2023,,Million WH,,[199]
+mew-yb-2023,station-use-monthly,Auxiliary Units Consumed By Power Stations' (Million Wh) During 2023,,Million Wh,,[205]
+mew-yb-2023,net-export-monthly,Net Export Of Electrical Energy (Million WH) During 2023,,Million WH,,[214]
+mew-yb-2023,station-units,"Station pages: units, date of commissioning and installed capacity",,MW,,"[35, 36, 37, 38, 39, 40, 41, 42, 43, 46, 47, 50, 51]"
+mew-mb-2025-05,generation-daily,Generation of electrical energy (MWhr) during May 2025,,MWhr,,[17]
+mew-mb-2025-05,export-daily,Export of electrical energy (MWhr) during May 2025,,MWhr,,[25]
+mew-mb-2025-06,generation-daily,Generation of electrical energy (MWhr) during June 2025,,MWhr,,[17]
+mew-mb-2025-06,export-daily,Export of electrical energy (MWhr) during June 2025,,MWhr,,[25]
+mew-mb-2025-07,generation-daily,Generation of Elec. Energy (MWhr) During July 2025,,MWhr,,"[27, 28]"
+mew-mb-2025-07,export-daily,Export of Elec. Energy (MWhr) During July 2025,,MWhr,,"[43, 44]"
+csb-env-2013,100,Electric Power Generated from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المولدة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المولدة,
+csb-env-2013,101,Electrical Energy Consumed within the Stations (MW/H) by Month and Station,الطاقة الكهربائية المستهلكة داخل المحطات (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمستهلكة,
+csb-env-2013,102,Exporting Electric Power from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المصدرة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمصدرة,
+csb-env-2013,106,Consumption of Natural Gas Stations in (T.C.F) by Month and Station,استهلاك المحطات من الغاز الطبيعى (بالألف قدم مكعب) حسب الشهر والمحطة,T.C.F,استهلاك ا لمحطات من الغاز,
+csb-env-2013,107,Stations Consumption of Gas Oil (Barrel) by Month and Station,استهلاك المحطات من زيت الغاز (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من زيت الغاز,
+csb-env-2013,108,Consumption of Crude Oil (Barrel) by Month and Station,استهلاك المحطات من النفط الخام (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من النفط الخام,
+csb-env-2013,109,Stations Consumption of Heavy Oil (Barrel) by Month and Station,استهلاك المحطات من الزيت الثقيل (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من الزيت الثقيل,
+csb-env-2014,108,Electric Power Generated from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المولدة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المولدة,
+csb-env-2014,109,Electrical Energy Consumed within the Stations (MW/H) by Month and Station,الطاقة الكهربائية المستهلكة داخل المحطات (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمستهلكة,
+csb-env-2014,110,Exporting Electric Power from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المصدرة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمصدرة,
+csb-env-2014,114,Consumption of Natural Gas Stations in (T.C.F) by Month and Station,استهلاك المحطات من الغاز الطبيعى (بالألف قدم مكعب) حسب الشهر والمحطة,T.C.F,استهلاك ا لمحطات من الغاز,
+csb-env-2014,115,Stations Consumption of Gas Oil (Barrel) by Month and Station,استهلاك المحطات من زيت الغاز (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من زيت الغاز,
+csb-env-2014,116,Consumption of Crude Oil (Barrel) by Month and Station,استهلاك المحطات من النفط الخام (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من النفط الخام,
+csb-env-2014,117,Stations Consumption of Heavy Oil (Barrel) by Month and Station,استهلاك المحطات من الزيت الثقيل (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من الزيت الثقيل,
+csb-env-2015,108,Electric Power Generated from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المولدة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المولدة,
+csb-env-2015,109,Electrical Energy Consumed within the Stations (MW/H) by Month and Station,الطاقة الكهربائية المستهلكة داخل المحطات (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمستهلكة,
+csb-env-2015,110,Exporting Electric Power from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المصدرة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمصدرة,
+csb-env-2015,114,Consumption of Natural Gas Stations in (T.C.F) by Month and Station,استهلاك المحطات من الغاز الطبيعى (بالألف قدم مكعب) حسب الشهر والمحطة,T.C.F,استهلاك ا لمحطات من الغاز,
+csb-env-2015,115,Stations Consumption of Gas Oil (Barrel) by Month and Station,استهلاك المحطات من زيت الغاز (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من زيت الغاز,
+csb-env-2015,116,Consumption of Crude Oil (Barrel) by Month and Station,استهلاك المحطات من النفط الخام (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من النفط الخام,
+csb-env-2015,117,Stations Consumption of Heavy Oil (Barrel) by Month and Station,استهلاك المحطات من الزيت الثقيل (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من الزيت الثقيل,
+csb-env-2016,108,Electric Power Generated from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المولدة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المولدة,
+csb-env-2016,109,Electrical Energy Consumed within the Stations (MW/H) by Month and Station,الطاقة الكهربائية المستهلكة داخل المحطات (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمستهلكة,
+csb-env-2016,110,Exporting Electric Power from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المصدرة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمصدرة,
+csb-env-2016,114,Consumption of Natural Gas Stations in (T.C.F) by Month and Station,استهلاك المحطات من الغاز الطبيعى (بالألف قدم مكعب) حسب الشهر والمحطة,T.C.F,استهلاك ا لمحطات من الغاز,
+csb-env-2016,115,Stations Consumption of Gas Oil (Barrel) by Month and Station,استهلاك المحطات من زيت الغاز (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من زيت الغاز,
+csb-env-2016,116,Consumption of Crude Oil (Barrel) by Month and Station,استهلاك المحطات من النفط الخام (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من النفط الخام,
+csb-env-2016,117,Stations Consumption of Heavy Oil (Barrel) by Month and Station,استهلاك المحطات من الزيت الثقيل (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من الزيت الثقيل,
+csb-env-2017,109,Electric Power Generated from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المولدة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المولدة,
+csb-env-2017,110,Electrical Energy Consumed within the Stations (MW/H) by Month and Station,الطاقة الكهربائية المستهلكة داخل المحطات (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمستهلكة,
+csb-env-2017,111,Exporting Electric Power from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المصدرة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمصدرة,
+csb-env-2017,115,Consumption of Natural Gas Stations in (T.C.F) by Month and Station,استهلاك المحطات من الغاز الطبيعى (بالألف قدم مكعب) حسب الشهر والمحطة,T.C.F,استهلاك ا لمحطات من الغاز,
+csb-env-2017,116,Stations Consumption of Gas Oil (Barrel) by Month and Station,استهلاك المحطات من زيت الغاز (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من زيت الغاز,
+csb-env-2017,117,Consumption of Crude Oil (Barrel) by Month and Station,استهلاك المحطات من النفط الخام (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من النفط الخام,
+csb-env-2017,118,Stations Consumption of Heavy Oil (Barrel) by Month and Station,استهلاك المحطات من الزيت الثقيل (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من الزيت الثقيل,
+csb-env-2018,110,Electric Power Generated from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المولدة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المولدة,
+csb-env-2018,111,Electrical Energy Consumed within the Stations (MW/H) by Month and Station,الطاقة الكهربائية المستهلكة داخل المحطات (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمستهلكة,
+csb-env-2018,112,Exporting Electric Power from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المصدرة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمصدرة,
+csb-env-2018,116,Consumption of Natural Gas Stations in (T.C.F) by Month and Station,استهلاك المحطات من الغاز الطبيعى (بالألف قدم مكعب) حسب الشهر والمحطة,T.C.F,استهلاك ا لمحطات من الغاز,
+csb-env-2018,117,Stations Consumption of Gas Oil (Barrel) by Month and Station,استهلاك المحطات من زيت الغاز (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من زيت الغاز,
+csb-env-2018,118,Consumption of Crude Oil (Barrel) by Month and Station,استهلاك المحطات من النفط الخام (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من النفط الخام,
+csb-env-2018,119,Stations Consumption of Heavy Oil (Barrel) by Month and Station,استهلاك المحطات من الزيت الثقيل (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من الزيت الثقيل,
+csb-env-2019,110,Information About Electric Power Stations,معلومات عن محطات القوى الكهربائية,,معلومات محطات القوى الكهربائية,
+csb-env-2019,112,Electric Power Generated from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المولدة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المولدة,
+csb-env-2019,113,Electrical Energy Consumed within the Stations (MW/H) by Month and Station,الطاقة الكهربائية المستهلكة داخل المحطات (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المستهلكة,
+csb-env-2019,114,Exporting Electric Power from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المصدرة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمصدرة,
+csb-env-2019,118,Consumption of Natural Gas Stations in (T.C.F) by Month and Station,استهلاك المحطات من الغاز الطبيعى (بالألف قدم مكعب) حسب الشهر والمحطة,T.C.F,استهلاك ا لمحطات من الغاز,
+csb-env-2019,119,Stations Consumption of Gas Oil (Barrel) by Month and Station,استهلاك المحطات من زيت الغاز (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من زيت الغاز,
+csb-env-2019,120,Consumption of Crude Oil (Barrel) by Month and Station,استهلاك المحطات من النفط الخام (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من النفط الخام,
+csb-env-2019,121,Stations Consumption of Heavy Oil (Barrel) by Month and Station,استهلاك المحطات من الزيت الثقيل (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من الزيت الثقيل,
+csb-env-2020,110,Information About Electric Power Stations,معلومات عن محطات القوى الكهربائية,,معلومات محطات القوى الكهربائية,
+csb-env-2020,112,Electric Power Generated from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المولدة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المولدة,
+csb-env-2020,113,Electrical Energy Consumed within the Stations (MW/H) by Month and Station,الطاقة الكهربائية المستهلكة داخل المحطات (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمستهلكة,
+csb-env-2020,114,Exporting Electric Power from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المصدرة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمصدرة,
+csb-env-2020,118,Consumption of Natural Gas Stations in (T.C.F) by Month and Station,استهلاك المحطات من الغاز الطبيعى (بالألف قدم مكعب) حسب الشهر والمحطة,T.C.F,استهلاك ا لمحطات من الغاز,
+csb-env-2020,119,Stations Consumption of Gas Oil (Barrel) by Month and Station,استهلاك المحطات من زيت الغاز (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من زيت الغاز,
+csb-env-2020,120,Consumption of Crude Oil (Barrel) by Month and Station,استهلاك المحطات من النفط الخام (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من النفط الخام,
+csb-env-2020,121,Stations Consumption of Heavy Oil (Barrel) by Month and Station,استهلاك المحطات من الزيت الثقيل (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من الزيت الثقيل,
+csb-env-2021,108,Information About Electric Power Stations,معلومات عن محطات القوى الكهربائية,,معلومات محطات القوى الكهربائية,
+csb-env-2021,110,Electric Power Generated from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المولدة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المولدة,
+csb-env-2021,111,Electrical Energy Consumed within the Stations (MW/H) by Month and Station,الطاقة الكهربائية المستهلكة داخل المحطات (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمستهلكة,
+csb-env-2021,112,Exporting Electric Power from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المصدرة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمصدرة,
+csb-env-2021,116,Consumption of Natural Gas Stations in (T.C.F) by Month and Station,استهلاك المحطات من الغاز الطبيعى (بالألف قدم مكعب) حسب الشهر والمحطة,T.C.F,استهلاك ا لمحطات من الغاز,
+csb-env-2021,117,Stations Consumption of Gas Oil (Barrel) by Month and Station,استهلاك المحطات من زيت الغاز (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من زيت الغاز,
+csb-env-2021,118,Consumption of Crude Oil (Barrel) by Month and Station,استهلاك المحطات من النفط الخام (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من النفط الخام,
+csb-env-2021,119,Stations Consumption of Heavy Oil (Barrel) by Month and Station,استهلاك المحطات من الزيت الثقيل (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من الزيت الثقيل,
+csb-env-2022,110,Information About Electric Power Stations,معلومات عن محطات القوى الكهربائية,,معلومات محطات القوى الكهربائية,
+csb-env-2022,112,Electric Power Generated from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المولدة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المولدة,
+csb-env-2022,113,Electrical Energy Consumed within the Stations (MW/H) by Month and Station,الطاقة الكهربائية المستهلكة داخل المحطات (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمستهلكة,
+csb-env-2022,114,Exporting Electric Power from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المصدرة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمصدرة,
+csb-env-2022,118,Consumption of Natural Gas Stations in (T.C.F) by Month and Station,استهلاك المحطات من الغاز الطبيعى (بالألف قدم مكعب) حسب الشهر والمحطة,T.C.F,استهلاك ا لمحطات من الغاز,
+csb-env-2022,119,Stations Consumption of Gas Oil (Barrel) by Month and Station,استهلاك المحطات من زيت الغاز (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من زيت الغاز,
+csb-env-2022,120,Consumption of Crude Oil (Barrel) by Month and Station,استهلاك المحطات من النفط الخام (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من النفط الخام,
+csb-env-2022,121,Stations Consumption of Heavy Oil (Barrel) by Month and Station,استهلاك المحطات من الزيت الثقيل (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من الزيت الثقيل,
+csb-env-2023,105,Information About Electric Power Stations,معلومات عن محطات القوى الكهربائية,,معلومات محطات القوى الكهربائية,
+csb-env-2023,107,Electric Power Generated from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المولدة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المولدة,
+csb-env-2023,108,Electrical Energy Consumed within the Stations (MW/H) by Month and Station,الطاقة الكهربائية المستهلكة داخل المحطات (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمستهلكة,
+csb-env-2023,109,Exporting Electric Power from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المصدرة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمصدرة,
+csb-env-2023,113,Consumption of Natural Gas Stations in (T.C.F) by Month and Station,استهلاك المحطات من الغاز الطبيعى (بالألف قدم مكعب) حسب الشهر والمحطة,T.C.F,استهلاك ا لمحطات من الغاز,
+csb-env-2023,114,Stations Consumption of Gas Oil (Barrel) by Month and Station,استهلاك المحطات من زيت الغاز (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من زيت الغاز,
+csb-env-2023,115,Consumption of Crude Oil (Barrel) by Month and Station,استهلاك المحطات من النفط الخام (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من النفط الخام,
+csb-env-2023,116,Stations Consumption of Heavy Oil (Barrel) by Month and Station,استهلاك المحطات من الزيت الثقيل (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من الزيت الثقيل,
+csb-env-2024,108,Information About Electric Power Stations,معلومات عن محطات القوى الكهربائية,,معلومات محطات القوى الكهربائية,
+csb-env-2024,110,Electric Power Generated from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المولدة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المولدة,
+csb-env-2024,111,Electrical Energy Consumed within the Stations (MW/H) by Month and Station,الطاقة الكهربائية المستهلكة داخل المحطات (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمستهلكة,
+csb-env-2024,112,Exporting Electric Power from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المصدرة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمصدرة,
+csb-env-2024,116,Consumption of Natural Gas Stations in (T.C.F) by Month and Station,استهلاك المحطات من الغاز الطبيعى (بالألف قدم مكعب) حسب الشهر والمحطة,T.C.F,استهلاك ا لمحطات من الغاز,
+csb-env-2024,117,Stations Consumption of Gas Oil (Barrel) by Month and Station,استهلاك المحطات من زيت الغاز (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من زيت الغاز,
+csb-env-2024,118,Consumption of Crude Oil (Barrel) by Month and Station,استهلاك المحطات من النفط الخام (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من النفط الخام,
+csb-env-2024,119,Stations Consumption of Heavy Oil (Barrel) by Month and Station,استهلاك المحطات من الزيت الثقيل (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من الزيت الثقيل,
+undata-edata-kw-el,EDATA,"Energy Statistics Database: Kuwait, electricity",,,,

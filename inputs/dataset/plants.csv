@@ -1,0 +1,14 @@
+id,kind,parent,name_en,name_ar,name_ar_reviewed
+shuwaikh,power_station,,Shuwaikh,الشويخ,false
+shuaiba-north,power_station,,Shuaiba North,الشعيبة الشمالية,false
+shuaiba-south,power_station,,Shuaiba South,الشعيبة الجنوبية,false
+doha-east,power_station,,Doha East,الدوحة الشرقية,false
+doha-west,power_station,,Doha West,الدوحة الغربية,false
+zour-south,power_station,,Az-Zour South,الزور الجنوبية,false
+zour-north,power_station,,Az-Zour North,الزور الشمالية,false
+sabiya,power_station,,Sabiya,الصبية,false
+shagaya,renewable,,Shagaya,الشقايا,false
+shuwaikh-ro,ro,shuwaikh,Shuwaikh (RO),الشويخ (التناضح العكسي),false
+shuwaikh-boilers,boilers,shuwaikh,Shuwaikh boilers,الشويخ (الغلايات),false
+doha-west-ro,ro,doha-west,Doha West (RO),الدوحة الغربية (التناضح العكسي),false
+zour-south-ro,ro,zour-south,Az-Zour South (RO),الزور الجنوبية (التناضح العكسي),false
