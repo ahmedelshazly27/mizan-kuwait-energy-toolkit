@@ -7,6 +7,7 @@ mew-yb-2020,peak-history,and Humidity During 1991 - 2020,,MW,,[70]
 mew-yb-2020,generation-monthly,Generation Of Electrical Energy (Million WH) During 2020,,Million WH,,[161]
 mew-yb-2020,station-use-monthly,Auxiliary Units Consumed By Power Stations' (Million Wh) During 2020,,Million Wh,,[167]
 mew-yb-2020,net-export-monthly,Net Export Of Electrical Energy (Million WH) During 2020,,Million WH,,[176]
+mew-yb-2020,peak-day-load,System loads on the day of the yearly peak (half-hourly),,MW,,[77]
 mew-yb-2020,station-units,"Station pages: units, date of commissioning and installed capacity",,MW,,"[33, 35, 36, 37, 38, 39, 40, 41, 42, 45, 46, 50]"
 mew-yb-2021,capacity-history,Capacity ( M.W ) During 1992 - 2021,,MW,,[49]
 mew-yb-2021,generation-history,Power Stations' Generation of Electrical Energy (Million kWh) During 1992 - 2021,,Million kWh,,[56]
@@ -16,6 +17,7 @@ mew-yb-2021,peak-history,and Humidity During 1992 - 2021,,MW,,[67]
 mew-yb-2021,generation-monthly,Generation Of Electrical Energy (Million WH) During 2021,,Million WH,,[154]
 mew-yb-2021,station-use-monthly,Auxiliary Units Consumed By Power Stations' (Million Wh) During 2021,,Million Wh,,[160]
 mew-yb-2021,net-export-monthly,Net Export Of Electrical Energy (Million WH) During 2021,,Million WH,,[169]
+mew-yb-2021,peak-day-load,System loads on the day of the yearly peak (half-hourly),,MW,,[73]
 mew-yb-2021,station-units,"Station pages: units, date of commissioning and installed capacity",,MW,,"[30, 32, 33, 34, 35, 36, 37, 38, 39, 42, 43, 47]"
 mew-yb-2022,capacity-history,Capacity ( M.W ) During 1993 - 2022,,MW,,[55]
 mew-yb-2022,generation-history,Power Stations' Generation of Electrical Energy (M.kWh) During 1993 - 2022,,M.kWh,,[62]
@@ -25,6 +27,7 @@ mew-yb-2022,peak-history,and Humidity During 1993 - 2022,,MW,,[74]
 mew-yb-2022,generation-monthly,Generation Of Electrical Energy (Million WH) During 2022,,Million WH,,[168]
 mew-yb-2022,station-use-monthly,Auxiliary Units Consumed By Power Stations' (Million Wh) During 2022,,Million Wh,,[174]
 mew-yb-2022,net-export-monthly,Net Export Of Electrical Energy (Million WH) During 2022,,Million WH,,[183]
+mew-yb-2022,peak-day-load,System loads on the day of the yearly peak (half-hourly),,MW,,[80]
 mew-yb-2022,station-units,"Station pages: units, date of commissioning and installed capacity",,MW,,"[37, 39, 40, 41, 42, 43, 44, 45, 46, 49, 50, 53]"
 mew-yb-2023,capacity-history,Development of Power Station's Installed Capacity ( M.W ) During 1994 - 2023,,MW,,[52]
 mew-yb-2023,generation-history,Power Stations’ Generation of Electrical Energy (Million kWh) During 1994 - 2023,,Million kWh,,[59]
@@ -34,13 +37,17 @@ mew-yb-2023,peak-history,"System Peak Load, Maximum Temperature",,MW,,[71]
 mew-yb-2023,generation-monthly,Generation Of Electrical Energy (Million WH) During 2023,,Million WH,,[199]
 mew-yb-2023,station-use-monthly,Auxiliary Units Consumed By Power Stations' (Million Wh) During 2023,,Million Wh,,[205]
 mew-yb-2023,net-export-monthly,Net Export Of Electrical Energy (Million WH) During 2023,,Million WH,,[214]
+mew-yb-2023,peak-day-load,System loads on the day of the yearly peak (half-hourly),,MW,,[76]
 mew-yb-2023,station-units,"Station pages: units, date of commissioning and installed capacity",,MW,,"[35, 36, 37, 38, 39, 40, 41, 42, 43, 46, 47, 50, 51]"
 mew-mb-2025-05,generation-daily,Generation of electrical energy (MWhr) during May 2025,,MWhr,,[17]
 mew-mb-2025-05,export-daily,Export of electrical energy (MWhr) during May 2025,,MWhr,,[25]
+mew-mb-2025-05,daily-load-compare,"Comparative maximum & minimum loads, this year and last (daily)",,MW,,[9]
 mew-mb-2025-06,generation-daily,Generation of electrical energy (MWhr) during June 2025,,MWhr,,[17]
 mew-mb-2025-06,export-daily,Export of electrical energy (MWhr) during June 2025,,MWhr,,[25]
+mew-mb-2025-06,daily-load-compare,"Comparative maximum & minimum loads, this year and last (daily)",,MW,,[9]
 mew-mb-2025-07,generation-daily,Generation of Elec. Energy (MWhr) During July 2025,,MWhr,,"[27, 28]"
 mew-mb-2025-07,export-daily,Export of Elec. Energy (MWhr) During July 2025,,MWhr,,"[43, 44]"
+mew-mb-2025-07,daily-load,"System availability capacity, plant on bars and peak & minimum load (daily)",,MW,,"[9, 10]"
 csb-env-2013,100,Electric Power Generated from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المولدة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية المولدة,
 csb-env-2013,101,Electrical Energy Consumed within the Stations (MW/H) by Month and Station,الطاقة الكهربائية المستهلكة داخل المحطات (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمستهلكة,
 csb-env-2013,102,Exporting Electric Power from Electrical Power Stations (MW/H) by Month and Station,الطاقة الكهربائية المصدرة من محطات القوى الكهربائية (ميجا واط/ساعة) حسب الشهر والمحطة,MW/H,الطاقة الكهربائية ا لمصدرة,

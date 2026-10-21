@@ -7,12 +7,22 @@ installed_capacity,MW,Installed capacity,السعة المركبة
 operating_year,year,First operating year as printed,سنة التشغيل
 fuel_use,,Fuel consumed by the station (unit depends on fuel),استهلاك المحطات من الوقود
 desalination_use,MWh,Electricity used for water desalination (RO units and boilers),الطاقة الكهربائية المستهلكة لتحلية المياه
-max_load,MW,Maximum load in the year,الحمل الأقصى
-min_load,MW,Minimum load in the year,الحمل الأدنى
+max_load,MW,"Maximum load in the period (the year, or the day in daily tables)",الحمل الأقصى
+min_load,MW,"Minimum load in the period (the year, or the day in daily tables)",الحمل الأدنى
 peak_load,MW,System peak load,الحمل الأقصى للنظام
 peak_load_date,text,Date of the system peak as printed (format varies by row; never parsed),تاريخ الحمل الأقصى
 temperature_at_peak,degC,Maximum temperature at peak load,درجة الحرارة القصوى عند الحمل الأقصى
 humidity_at_peak,percent,Maximum relative humidity at peak load,الرطوبة النسبية القصوى عند الحمل الأقصى
+max_temperature,degC,"Maximum temperature of the day, as printed (Max.Temp. C)",أقصى درجة حرارة
+system_load,MW,"System load at an instant (half-hourly curve on the yearly peak day, as printed)",الحمل الكهربائي للشبكة
+peak_load_time,text,Time of the daily peak load as printed,وقت الحمل الأقصى
+min_load_time,text,Time of the daily minimum load as printed,وقت الحمل الأدنى
+temperature_at_min,degC,Minimum temperature at minimum load,أدنى درجة حرارة عند الحمل الأدنى
+humidity_at_min,percent,Minimum relative humidity at minimum load,أدنى نسبة رطوبة عند الحمل الأدنى
+available_capacity,MW,Available capacity,القدرة المتوفرة
+plant_on_bars,MW,Plant on bars (capacity running),القدرة العاملة
+spinning_reserve,MW,Spinning reserve,الاحتياطي الدوار
+isr,MW,"ISR, as printed (instantaneous spinning reserve: the Arabic header reads الاحتياطي الدوار اللحظي)",الاحتياطي الدوار اللحظي
 consumption,MWh,Electricity consumption by sector (UNdata; secondary),استهلاك الكهرباء حسب القطاع
 un_gross_production,MWh,UNdata: gross production,
 un_net_production,MWh,UNdata: net production,
