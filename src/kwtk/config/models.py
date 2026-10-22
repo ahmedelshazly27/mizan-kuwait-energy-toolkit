@@ -184,7 +184,6 @@ class SocLimits(Strict):
 
 class StorageThermal(Strict):
     hvac_load_kw_per_mwh: Num = "assumption:storage.hvac_load"
-    derate_above_c: float | None = None
 
 
 class StorageBlock(Strict):
