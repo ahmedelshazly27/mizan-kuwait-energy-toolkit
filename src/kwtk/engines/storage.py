@@ -12,9 +12,11 @@ Strategies (controls.strategy), all without foresight beyond the day unless stat
   pv_firming    hold a committed export (`committed_mw` between `from_hour` and
                 `to_hour`, local); charge surplus, discharge deficits; report
                 hours delivered within `tolerance_pct`
-  peak_shaving  discharge evenly over `window` (local hours [start, end)) on days
-                the system load exceeds its `threshold_percentile` (default 90);
-                charge from PV
+  peak_shaving  on days whose system peak is in the top `threshold_percentile`
+                (default 90), lower the day's net load (system load minus this plant's
+                export) to the flattest level the stored energy can hold, within the
+                spare export capacity and optionally only within `window` (local hours
+                [start, end)); charge from PV. Other days run as export_limit
   arbitrage     each day, charge the cheapest hours and discharge the dearest
                 against a price series (perfect foresight within the day)
   reserve       as export_limit, but never below the energy that holds
@@ -107,14 +109,32 @@ def dispatch(cfg: PlantConfig, pv: dict, r: Resolver, system_load: pd.Series | N
         elif strat == "peak_shaving":
             if system_load is None:
                 raise ValueError("peak_shaving needs the system load (evaluation.system_context)")
-            s, e = par.get("window", [12, 18])
             load = system_load.reindex(idx).values
             day = (idx + pd.Timedelta(hours=3)).normalize()
             thr = np.nanpercentile(pd.Series(load).groupby(day).max(), float(par.get("threshold_percentile", 90)))
             hot = pd.Series(load, index=idx).groupby(day).transform("max").values >= thr
-            win = (hour >= s) & (hour < e)
-            target = np.where(win & hot, b.power, -np.clip(p_pv, 0, None))
-            target = np.where(win & ~hot, 0.0, target)
+            win = np.ones(n, bool)
+            if "window" in par:
+                s_, e_ = par["window"]
+                win = (hour >= s_) & (hour < e_)
+            headroom = np.clip(limit - p_pv, 0, None)
+            net = load - np.clip(p_pv, 0, limit)                 # the system's load net of this plant
+            usable = b.energy * (b.soc_max - b.soc_min) * b.eta_d
+            start = int(par.get("discharge_from_hour", 17))
+            # ordinary days: as export_limit (store what the limit curtails, discharge from 17:00)
+            target = np.where(p_pv > limit, -(p_pv - limit), np.where(hour >= start, headroom, 0.0))
+            for _, pos in pd.Series(np.arange(n), index=day).groupby(level=0):
+                ii = pos.values
+                if not hot[ii[0]]:
+                    continue
+                cap = np.where(win[ii], np.minimum(b.power, headroom[ii]), 0.0)
+                # flatten: the level L at which sum(min(cap, max(0, net - L))) equals the usable energy
+                lo, hi = float(np.nanmin(net[ii])), float(np.nanmax(net[ii]))
+                for _ in range(50):
+                    lvl = (lo + hi) / 2
+                    lo, hi = (lvl, hi) if np.minimum(cap, np.clip(net[ii] - lvl, 0, None)).sum() > usable else (lo, lvl)
+                shave = np.minimum(cap, np.clip(net[ii] - hi, 0, None))
+                target[ii] = np.where(shave > 0, shave, -np.clip(p_pv[ii], 0, None))
         elif strat == "arbitrage":
             if price is None:
                 raise ValueError("arbitrage needs a price series (economics.revenue.tariff or system context)")

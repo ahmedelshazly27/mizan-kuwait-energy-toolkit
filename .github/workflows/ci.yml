@@ -12,9 +12,9 @@ jobs:
       - name: dataset snapshot matches its manifest
         run: uv run kwtk inputs verify
       - name: every configuration validates
-        run: uv run kwtk validate configs/examples/*.yaml configs/reference/*.yaml
+        run: uv run kwtk validate configs/examples/*.yaml
       - name: tests
         run: uv run pytest -q
-      - name: reference plants evaluate offline
+      - name: example plants evaluate offline
         run: |
-          for f in configs/reference/*.yaml; do uv run kwtk evaluate "$f"; done
+          for f in configs/examples/shagaya-*.yaml; do uv run kwtk evaluate "$f"; done

@@ -1,0 +1,53 @@
+# EXAMPLE approximating Shagaya Phase I PV (KISR, in service 2016). Facts marked [V]
+# are verified from MEW documents, [S] are reported but not verified, [C] are this
+# example's choices because the facts are not published (or could not be opened).
+schema: kuwait-plant/0.1
+id: shagaya-pv1-approximation
+name: "Example: approximation of Shagaya Phase I PV (about 11 MWp)"
+status: example
+description: >-
+  Two fixed-tilt arrays, thin film and polycrystalline, as reported for Shagaya Phase I.
+  Compare its specific yield with the 1,805-1,810 kWh/kWp reported for the plant's first
+  year (Al-Rasheedi et al. 2020, not verified). Shagaya's MEW generation figures cover
+  the whole park (PV, wind and CSP), so they cannot check this array alone.
+sources:
+  - title: "MEW Statistical Year Book, Electrical Energy 2023, p50: Shagaya PV 10 MW, commissioned 29/11/2016 [V]"
+  - title: "Al-Rasheedi et al. (2020), RSER 133:110139, doi 10.1016/j.rser.2020.110139: module types and counts, first-year yield [S]"
+site:
+  location: {lat: 29.2055, lon: 47.0524}                       # [S] PyPSA-Earth powerplants.csv
+  grid_connection: {point: shagaya-sgre, voltage_kv: 132, export_limit_mw: 10}   # [C] voltage; 10 MW [V]
+pv:
+  arrays:
+    - id: thin-film
+      dc_capacity_mwp: 5.5447                                   # 34,560 x 160.44 W [S]
+      module: {ref: "library:solar-frontier-sf160-s"}
+      mounting: {type: fixed, tilt_deg: 25, azimuth_deg: 180}   # [C] tilt; fixed [S]
+      layout: {gcr: 0.4, module_height_m: 0.8, collector_width_m: 2.446, modules_per_string: 9, strings: 3840}   # [C] two modules in portrait
+    - id: poly
+      dc_capacity_mwp: 5.6215                                   # 17,820 x 315.46 W [S]
+      module: {ref: "library:jinko-jkm315pp-72"}
+      mounting: {type: fixed, tilt_deg: 25, azimuth_deg: 180}   # [C]
+      layout: {gcr: 0.4, module_height_m: 0.8, collector_width_m: 3.848, modules_per_string: 22, strings: 810}   # [C]
+inverters:
+  topology: central
+  dc_ac_ratio: 1.186                                            # follows from the arrays and units
+  units:
+    - {array: thin-film, ref: "library:sma-sc-2500-ev", count: 2}    # [C] SMA Sunny Central [S], model and count [C]
+    - {array: poly, ref: "library:sma-sc-2500-ev", count: 2}
+controls:
+  strategy: export_limit
+om:
+  cleaning:
+    method: manual_wet
+    schedule: {type: interval, interval_days: 14}               # [C]
+economics:
+  base_year: 2016
+  life_years: 25
+  capex:
+    pv_total_usd_per_kwac: assumption:capex.pv_atb2025_usd_per_kw
+  opex:
+    pv_fixed_usd_per_kw_year: assumption:opex.pv_atb2025_usd_per_kw_year
+  finance: {structure: regulated, wacc_real: assumption:wacc.kuwait_ipp}
+  revenue: {}
+evaluation:
+  years: [2017, 2018, 2019, 2020, 2021, 2022, 2023]

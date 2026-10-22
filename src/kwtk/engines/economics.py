@@ -14,7 +14,7 @@ Costs are read from the unit in each key:
   *_usd             lump sum               *_pct_of_capex    x the other capex lines
   (opex) *_usd_per_kwdc_year, *_usd_per_kw_year, *_usd_year, *_pct_of_capex (per year)
 An unrecognised unit is an error. Auxiliary power imported at night (battery
-cooling) is netted against export at the PPA price. PySAM runs in USD; KWD figures use the assumption
+cooling) is a yearly cost at MEW's industrial and commercial tariff. PySAM runs in USD; KWD figures use the assumption
 fx.kwd_per_usd. Taxes default to zero (Kuwait levies no corporate income tax on
 Kuwaiti companies; the configuration may set one), no depreciation or incentives."""
 
@@ -91,15 +91,20 @@ def lifetime_generation(cfg: PlantConfig, hourly: pd.DataFrame, r: Resolver, efc
         pv_part = (y.export - y.battery.clip(lower=0)).clip(lower=0)
         batt_part = np.minimum(y.battery.clip(lower=0), y.export)
         pv_f = (1 - d1) * (1 - d) ** n
-        gen.append((pv_part * pv_f + batt_part * fade[n] - y["import"]).values)
-    return np.concatenate(gen), aug_mwh
+        gen.append((pv_part * pv_f + batt_part * fade[n]).values)
+    imports = float(h["import"].sum()) / len(years)          # MWh per year
+    return np.concatenate(gen), aug_mwh, imports
 
 
 def run(cfg: PlantConfig, pv: dict | None, disp: dict, r: Resolver, cleanings_per_year: float) -> dict:
     e = cfg.economics
     fx = float(r.assumption("fx.kwd_per_usd", "economics.currency"))
     c = costs(cfg, pv, r, cleanings_per_year)
-    gen_mw, aug_mwh = lifetime_generation(cfg, disp["hourly"], r, disp.get("efc_per_year"))
+    gen_mw, aug_mwh, import_mwh = lifetime_generation(cfg, disp["hourly"], r, disp.get("efc_per_year"))
+    if import_mwh > 0:          # auxiliary power bought at night, at the MEW tariff
+        tariff_kwd = float(r.assumption("tariff.mew_industrial_fils_per_kwh", "economics.opex.auxiliary_imports")) / 1000
+        c["opex_lines"]["auxiliary_imports"] = import_mwh * 1000 * tariff_kwd / fx
+        c["opex_usd_year"] = sum(c["opex_lines"].values())
     m = so.default("PVWattsSingleOwner")
     m.Lifetime.system_use_lifetime_output = 1
     m.FinancialParameters.analysis_period = e.life_years
@@ -157,19 +162,30 @@ def run(cfg: PlantConfig, pv: dict | None, disp: dict, r: Resolver, cleanings_pe
             if ("amount" in k or "percent" in k) and "deprbas" not in k and "tax_" not in k and "maxvalue" not in k:
                 setattr(g, k, (0,) if isinstance(v, (tuple, list)) else 0)
     rev = e.revenue
-    if rev.ppa_price_fils_per_kwh is not None:
-        price_kwd = float(r(rev.ppa_price_fils_per_kwh, "economics.revenue.ppa_price_fils_per_kwh")) / 1000
-        m.Revenue.ppa_soln_mode = 1
-        m.Revenue.ppa_price_input = (price_kwd / fx,)
-    else:
-        m.Revenue.ppa_soln_mode = 0
     m.Revenue.ppa_escalation = rev.escalation_pct
     m.Revenue.dispatch_factors_ts = (1,) * 8760
     m.Revenue.ppa_multiplier_model = 0
-    m.ElectricityRates.en_electricity_rates = 0      # no US utility bill: auxiliary imports net against export
+    m.ElectricityRates.en_electricity_rates = 0      # no US utility bill (auxiliary imports are an opex line)
     m.UtilityBill.utility_bill_w_sys = (0,) * (e.life_years + 1)
     m.LandLease.land_area = 0
-    m.execute()
+    m.Revenue.ppa_soln_mode = 1
+
+    def npv_at(price_usd):
+        m.Revenue.ppa_price_input = (price_usd,)
+        m.execute()
+        return m.Outputs.project_return_aftertax_npv
+
+    # Break-even PPA price: project NPV is linear in the price, so two runs locate the
+    # price at which NPV = 0 at the nominal equivalent of the real WACC. (PySAM's own
+    # price solver cannot run with utility rates disabled.)
+    m.FinancialParameters.real_discount_rate = wacc * 100
+    n1, n2 = npv_at(0.02), npv_at(0.06)
+    breakeven = 0.02 - n1 * (0.06 - 0.02) / (n2 - n1)
+    if rev.ppa_price_fils_per_kwh is not None:
+        price_kwd = float(r(rev.ppa_price_fils_per_kwh, "economics.revenue.ppa_price_fils_per_kwh")) / 1000
+        npv_at(price_kwd / fx)
+    else:
+        npv_at(breakeven)
     o = m.Outputs
     usd = lambda x: float(x)
     lcoe_real = usd(o.lcoe_real) / 100                     # cents/kWh -> USD/kWh
@@ -185,5 +201,6 @@ def run(cfg: PlantConfig, pv: dict | None, disp: dict, r: Resolver, cleanings_pe
         "lcoe_real_usd_per_kwh": lcoe_real, "lcoe_real_fils_per_kwh": lcoe_real * fx * 1000,
         "lcoe_crf_check_usd_per_kwh": float(simple),
         "npv_usd": usd(o.project_return_aftertax_npv), "irr_pct": usd(o.project_return_aftertax_irr),
-        "ppa_price_usd_per_kwh": usd(o.ppa) / 100, "fx_kwd_per_usd": fx, "wacc_real": wacc,
+        "ppa_price_usd_per_kwh": usd(o.ppa) / 100, "breakeven_ppa_usd_per_kwh": float(breakeven),
+        "breakeven_ppa_fils_per_kwh": float(breakeven) * fx * 1000, "fx_kwd_per_usd": fx, "wacc_real": wacc,
     }

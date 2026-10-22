@@ -1,30 +1,201 @@
 # Every number the toolkit uses that is not measured Kuwaiti data. One entry per
-# assumption, each with its value, unit, source and status:
-#   sourced   a Kuwaiti source gives it
-#   proxy     no Kuwaiti source exists; the named proxy is used, and why
-#   open      not yet decided; evaluation refuses to run while a used entry is open
-# Plant configurations refer to entries as assumption:<key>.
+# assumption, each with its value, unit, status and source. Status:
+#   sourced     a Kuwaiti source gives it, and the source was read
+#   proxy       no Kuwaiti source exists; the named non-Kuwaiti source was read and is used
+#   unverified  the value is attributed to the cited source, but the document could not be
+#               opened from the build environment (network-restricted); it was seen only in
+#               a search summary. Used, and flagged in every result that depends on it
+#   open        not decided; evaluation refuses to run while a used entry is open
+# Plant configurations refer to entries as assumption:<key>. Research notes behind these
+# entries: docs/assumption-sources.md.
 assumptions:
-  thermal.pvsyst_uc:                   {value: null, unit: W/m2K, status: open, source: null, note: "PVsyst constant heat-loss factor, fixed-tilt free-standing rows"}
-  thermal.pvsyst_uc_tracker:           {value: null, unit: W/m2K, status: open, source: null, note: "PVsyst constant heat-loss factor, single-axis trackers"}
-  thermal.pvsyst_uv:                   {value: null, unit: W/m2K per m/s, status: open, source: null, note: "PVsyst wind-dependent heat-loss factor"}
-  layout.collector_width_1p:           {value: null, unit: m, status: open, source: null, note: "row (table) width across the slope for a one-module-in-portrait tracker; used when a configuration does not give it"}
-  soiling.kuwait_rate_by_month:        {value: null, unit: "% per day, Jan..Dec", status: open, source: null, note: "soiling loss accumulation rate in Kuwait by month"}
-  soiling.rain_cleaning_threshold:     {value: null, unit: mm per day, status: open, source: null, note: "daily rainfall that cleans modules (Kimber-type model)"}
-  soiling.max_loss:                    {value: null, unit: "%", status: open, source: null, note: "ceiling on accumulated soiling loss"}
-  losses.dc_mismatch_pct:              {value: null, unit: "%", status: open, source: null}
-  losses.dc_wiring_pct:                {value: null, unit: "%", status: open, source: null}
-  fx.kwd_per_usd:                      {value: null, unit: KWD per USD, status: open, source: null}
-  finance.inflation:                   {value: null, unit: "fraction per year", status: open, source: null, note: "USD inflation used to convert real costs to PySAM's nominal schedules"}
-  albedo.desert:                       {value: null, unit: fraction, status: open, source: null, note: "ground albedo for Kuwaiti desert sites"}
-  storage.hvac_load:                   {value: null, unit: kW per MWh, status: open, source: null, note: "battery auxiliary cooling load at Kuwaiti ambient temperatures"}
-  ro.specific_energy_seawater:         {value: null, unit: kWh/m3, status: open, source: null, note: "Gulf seawater RO, plant-level specific energy"}
-  cleaning.effectiveness:              {value: null, unit: fraction, status: open, source: null, note: "share of accumulated soiling removed per cleaning, by method"}
-  cleaning.cost:                       {value: null, unit: USD per MWp per cleaning, status: open, source: null, note: "by method"}
-  availability.plant:                  {value: null, unit: fraction, status: open, source: null}
-  availability.inverter:               {value: null, unit: fraction, status: open, source: null}
-  availability.storage:                {value: null, unit: fraction, status: open, source: null}
-  degradation.pv_annual:               {value: null, unit: "% per year", status: open, source: null}
-  degradation.pv_first_year:           {value: null, unit: "%", status: open, source: null}
-  wacc.kuwait_ipp:                     {value: null, unit: "real, fraction", status: open, source: null, note: "Kuwait IPP real WACC"}
+  # ---------------------------------------------------------------- site and module physics
+  albedo.desert:
+    value: 0.30
+    unit: fraction
+    status: unverified
+    source: "IEA-PVPS T13-14:2021, Bifacial Photovoltaic Modules and Systems: Experience and Results, review table (Saudi Arabia, sand with gravel, 0.30)"
+    url: https://iea-pvps.org/wp-content/uploads/2021/04/IEA-PVPS-T13-14_2021-Bifacial-Photovoltaic-Modules-and-Systems-report.pdf
+    note: "No Kuwaiti albedo measurement found. Qatar albedometers report >0.40 for desert sand (PV Tech, QEERI), so 0.30 may understate bifacial gain."
+  thermal.pvsyst_uc:
+    value: 29.0
+    unit: W/m2K
+    status: proxy
+    source: "PVsyst 7 Help, thermal loss parameters, 'free-standing' (as tabulated in pvlib 0.13.0 temperature.py, TEMPERATURE_MODEL_PARAMETERS['pvsyst'])"
+    note: "Generic PVsyst default. The closest verified hot-desert fit is Faiman (2008), Negev desert, U0 25.0 / U1 6.84, for a different model form."
+  thermal.pvsyst_uc_tracker:
+    value: 29.0
+    unit: W/m2K
+    status: proxy
+    source: "PVsyst 7 Help via pvlib 0.13.0: 'freestanding ... typical of ground-mounted systems on tilted, fixed racking or single axis trackers'"
+    note: "No tracker-specific or Gulf-fitted value found."
+  thermal.pvsyst_uv:
+    value: 0.0
+    unit: W/m2K per m/s
+    status: proxy
+    source: "PVsyst 7 Help via pvlib 0.13.0 (free-standing: Uv = 0)"
+  layout.collector_width_1p:
+    value: null
+    unit: m
+    status: open
+    source: null
+    note: "Configurations give collector_width_m from their module's length (one module in portrait); no default is assumed."
+
+  # ---------------------------------------------------------------- soiling and cleaning
+  soiling.kuwait_rate_by_month:
+    value: [0.49, 0.49, 0.49, 0.49, 0.49, 0.49, 0.49, 0.49, 0.49, 0.49, 0.49, 0.49]
+    unit: "% per day, Jan..Dec"
+    status: unverified
+    source: "QEERI Solar Test Facility 5-Year Report (Doha, Qatar): average soiling loss 0.49 %/day, rain events excluded"
+    note: "No verified Kuwaiti daily rate. Qatar sources disagree on seasonality (winter vs summer peak), so one rate is used for every month. Kuwaiti studies report 17 % loss after 6 days of exposure in Kuwait City (1981) and monthly-cleaning losses of 8.7-15.1 % (SCIRP 2016), both unverified."
+  soiling.rain_cleaning_threshold:
+    value: 6.0
+    unit: mm per day
+    status: proxy
+    source: "Kimber et al. (2006), IEEE WCPEC-4, doi:10.1109/WCPEC.2006.279690, as the default of pvlib 0.13.0 soiling.kimber (cleaning_threshold=6)"
+  soiling.max_loss:
+    value: 30.0
+    unit: "%"
+    status: proxy
+    source: "Kimber et al. (2006) via pvlib 0.13.0 soiling.kimber (max_soiling=0.3)"
+  cleaning.effectiveness:
+    value: 1.0
+    unit: fraction
+    status: proxy
+    source: "Modelling convention of the Kimber soiling model (a cleaning restores the modules fully); Kimber et al. (2006)"
+    note: "No measured effectiveness of dry robotic or wet manual cleaning in desert conditions was found. A Doha study (Energy Conversion and Management, 2019) found nylon brushes less effective than water, without a percentage."
+  cleaning.cost:
+    value: 480.0
+    unit: USD per MWp per cleaning
+    status: unverified
+    source: "'Seasonal Soiling Rates and Cleaning Optimization for PV Systems in Saudi Arabia: Arar Desert Climate', Energies 19(18):4373: 1.80 SAR/kWp per scheduled cleaning (base case)"
+    url: https://www.mdpi.com/1996-1073/19/18/4373
+    note: "Converted at the SAR peg of 3.75 per USD: 1.80 SAR/kWp = 1,800 SAR/MWp = 480 USD/MWp."
+
+  # ---------------------------------------------------------------- electrical losses
+  losses.dc_mismatch_pct:
+    value: 2.0
+    unit: "%"
+    status: unverified
+    source: "Dobos, A.P. (2014), PVWatts Version 5 Manual, NREL/TP-6A20-62641, default system losses (mismatch 2 %)"
+    note: "Quoted from the manual's default loss table; the document could not be opened from the build environment."
+  losses.dc_wiring_pct:
+    value: 2.0
+    unit: "%"
+    status: unverified
+    source: "Dobos, A.P. (2014), PVWatts Version 5 Manual, NREL/TP-6A20-62641, default system losses (wiring 2 %)"
+
+  # ---------------------------------------------------------------- availability and degradation
+  availability.plant:
+    value: 0.99
+    unit: fraction
+    status: unverified
+    source: "NREL, 'PV System Availability from Commercial and Utility-Scale Systems' (OSTI 2323270): median (P50) system availability 0.99 across 1,128 US systems"
+    url: https://www.osti.gov/biblio/2323270
+    note: "System-level availability, which includes inverter outages."
+  availability.inverter:
+    value: 1.0
+    unit: fraction
+    status: proxy
+    source: "Included in availability.plant: the NREL measure is system-level, so a separate inverter factor would double-count (OSTI 2323270)"
+  availability.storage:
+    value: 0.97
+    unit: fraction
+    status: unverified
+    source: "Energy-Storage.News on LTSAs and BESS contracted availability (guarantee tiers of 95-98 %; mature LFP sites target >= 97 %)"
+    note: "Trade press, low authority. No peer-reviewed BESS availability found."
+  degradation.pv_annual:
+    value: 0.5
+    unit: "% per year"
+    status: unverified
+    source: "Jordan, D.C., Kurtz, S.R. (2013), 'Photovoltaic Degradation Rates - An Analytical Review', Prog. Photovolt. 21(1):12-29: median 0.5 %/yr"
+    note: "Generic. Desert studies range from 0.21 %/yr (mono-Si, DEWA Dubai) to 1.5-2.65 %/yr for older modules in hot deserts. Nothing Kuwait-measured found."
+  degradation.pv_first_year:
+    value: 2.0
+    unit: "%"
+    status: unverified
+    source: "Kersten et al., field tests in Cyprus and Germany: standard PERC initial light-induced degradation ~2 % (as summarised in search results)"
+    note: "Excludes later LeTID (a further 6-8 % over 3 years in that study), which is more severe in hot climates."
+
+  # ---------------------------------------------------------------- storage
+  storage.round_trip_efficiency_lfp:
+    value: 0.85
+    unit: fraction, AC-AC
+    status: proxy
+    source: "NREL Annual Technology Baseline 2025, ATBe.parquet v1.0.0, 'Round-Trip Efficiency', Utility-Scale Battery Storage, all scenarios (Cole, Ramasamy & Turan 2025)"
+    url: https://oedi-data-lake.s3.amazonaws.com/ATB/electricity/parquet/2025/v1.0.0/ATBe.parquet
+    note: "Measured US fleet average was 82 % in 2019 (EIA Today in Energy, 12 Feb 2021)."
+  storage.hvac_load:
+    value: 2.6
+    unit: kW per MWh
+    status: unverified
+    source: "Energy Central post 'BESS 5 MWh Aux consumption': 12-14 kW per 5 MWh container at 45-50 C ambient (value is the midpoint, 13 kW / 5 MWh)"
+    note: "Non-peer-reviewed. No peer-reviewed hot-climate value found; a manufacturer datasheet at 50 C would replace it."
+
+  # ---------------------------------------------------------------- water
+  ro.specific_energy_seawater:
+    value: null
+    unit: kWh/m3
+    status: open
+    source: null
+    note: "To be derived from MEW/CSB RO electricity use and production (water yearbooks); literature gives 3.6-5.4 kWh/m3 for Gulf SWRO (unverified)."
+
+  # ---------------------------------------------------------------- finance and costs
+  wacc.kuwait_ipp:
+    value: 0.053
+    unit: fraction per year
+    status: unverified
+    source: "IRENA (2023), The cost of financing for renewable power, Data Appendix: solar PV cost of capital, Kuwait 5.30 % (from Renewable Power Generation Costs in 2021)"
+    url: https://www.irena.org/-/media/Files/IRENA/Agency/Publication/2023/May/IRENA_Cost_of_financing_renewable_power_Appendix_2023.pdf
+    note: "Used as a real rate; IRENA's basis (real or nominal) was not confirmed."
+  fx.kwd_per_usd:
+    value: 0.30667
+    unit: KWD per USD
+    status: unverified
+    source: "Central Bank of Kuwait, Exchange Rate Policy: average exchange rate of the dinar against the US dollar, 2024: 306.67 fils"
+    url: https://www.cbk.gov.kw/en/monetary-policy/exchange-rate-policy
+  finance.inflation:
+    value: 0.02
+    unit: fraction per year
+    status: proxy
+    source: "US Federal Reserve FOMC, Statement on Longer-Run Goals and Monetary Policy Strategy: inflation objective of 2 percent"
+    note: "Used only to express real costs as PySAM's nominal schedules; results are reported in real terms."
+  tariff.mew_industrial_fils_per_kwh:
+    value: 5
+    unit: fils per kWh
+    status: sourced
+    source: "MEW Statistical Year Book: Electrical Energy 2023, chapter 4, 'Tariff Of Electricity In All Sectors Of Consumption' (PDF p104): Investmental & Commercial 5, Industrial & Agriculture 5"
+    note: "Prices a plant's night-time auxiliary imports (battery cooling)."
+  capex.pv_atb2025_usd_per_kw:
+    value: 1525.75
+    unit: USD per kW
+    status: proxy
+    source: "NREL ATB 2025, ATBe.parquet v1.0.0, UtilityPV, CAPEX, Moderate, 2024"
+    note: "US benchmark; basis (AC) and dollar year not confirmed from the documentation. Gulf costs are well below US costs."
+  capex.pv_irena2024_global_usd_per_kw:
+    value: 691.0
+    unit: USD per kW
+    status: unverified
+    source: "IRENA, Renewable Power Generation Costs in 2024 (July 2025): global weighted-average utility PV total installed cost 691 USD/kW"
+  opex.pv_atb2025_usd_per_kw_year:
+    value: 24.66
+    unit: USD per kW-year
+    status: proxy
+    source: "NREL ATB 2025, ATBe.parquet v1.0.0, UtilityPV, Fixed O&M, Moderate, 2024"
+  capex.battery_atb2025_usd_per_kwh:
+    value: 324.3
+    unit: USD per kWh
+    status: proxy
+    source: "NREL ATB 2025, ATBe.parquet v1.0.0, Utility-Scale Battery Storage 4 h, OCC 1,297.38 USD/kW, Moderate, 2024, divided by 4 h"
+  capex.battery_gcc_ember2025_usd_per_kwh:
+    value: 125.0
+    unit: USD per kWh
+    status: unverified
+    source: "Ember (Dec 2025), 'How cheap is battery storage?': all-in about 125 USD/kWh for >= 4 h projects; two Saudi auctions about 120 USD/kWh"
+    url: https://ember-energy.org/app/uploads/2025/12/How-cheap-is-battery-storage.pdf
+  opex.battery_atb2025_usd_per_kw_year:
+    value: 51.90
+    unit: USD per kW-year
+    status: proxy
+    source: "NREL ATB 2025, ATBe.parquet v1.0.0, Utility-Scale Battery Storage 4 h, Fixed O&M, Moderate, 2024"
   demand.base_shape_nonsummer:         {value: "inputs/demand/kuwait-gross-load-reconstructed.json#fit.params (c1, s1, c2, s2)", unit: "two-harmonic diurnal shape, fraction of the monthly scale", status: proxy, source: "the non-cooling component of the demand model, fitted to May-July daily data only (docs/decisions.md D2, D3)", note: "no sub-daily Kuwaiti load is published for October-April; the fitted shape has a 03:00 maximum that is probably an artefact of fitting on summer days; replace with MEW hourly data when obtained"}

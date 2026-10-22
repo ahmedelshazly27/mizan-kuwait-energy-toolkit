@@ -44,6 +44,9 @@ def main() -> None:
             d = report.write(run)
             for w in run["result"]["warnings"]:
                 print(f"warning: {w}")
+            unv = run["result"]["unverified_inputs"]
+            if unv:
+                print(f"note: {len(unv)} inputs rest on sources that could not be verified: {', '.join(unv)}")
             print(f"{run['result']['id']}: results in {d}")
         print(report.compare([run["result"] for run in runs]).round(3).to_string())
         return

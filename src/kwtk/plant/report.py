@@ -42,8 +42,11 @@ ROWS = [  # label, getter
     ("Capex, million USD", lambda r: r["economics"]["capex_usd"] / 1e6),
     ("LCOE real, fils/kWh", lambda r: r["economics"]["lcoe_real_fils_per_kwh"]),
     ("LCOE real, USD/kWh", lambda r: r["economics"]["lcoe_real_usd_per_kwh"]),
+    ("Break-even flat nominal PPA, fils/kWh", lambda r: r["economics"]["breakeven_ppa_fils_per_kwh"]),
     ("Project NPV, million USD", lambda r: r["economics"]["npv_usd"] / 1e6),
     ("Project IRR, %", lambda r: r["economics"]["irr_pct"]),
+    ("System peak after, MW", lambda r: r["storage"].get("system_peak_after", np.nan)),
+    ("System peak after PV alone, MW", lambda r: r["storage"].get("system_peak_after_pv_only", np.nan)),
     ("Assumptions used", lambda r: sum(1 for v in r["inputs"].values() if str(v.get("origin", "")).startswith("assumption:"))),
     ("Warnings", lambda r: len(r["warnings"])),
 ]

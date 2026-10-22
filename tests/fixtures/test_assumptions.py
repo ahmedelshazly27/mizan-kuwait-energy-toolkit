@@ -9,4 +9,5 @@ TEST_ASSUMPTIONS = {k: {"value": v, "status": "test", "source": "test placeholde
     "cleaning.cost": 50.0, "losses.dc_mismatch_pct": 1.0, "losses.dc_wiring_pct": 1.0,
     "availability.plant": 0.99, "availability.inverter": 0.99, "availability.storage": 0.98,
     "storage.hvac_load": 2.0, "degradation.pv_annual": 0.5, "degradation.pv_first_year": 1.0,
-    "wacc.kuwait_ipp": 0.06, "fx.kwd_per_usd": 0.3, "finance.inflation": 0.02}.items()}
+    "wacc.kuwait_ipp": 0.06, "fx.kwd_per_usd": 0.3, "finance.inflation": 0.02,
+    "tariff.mew_industrial_fils_per_kwh": 5}.items()}

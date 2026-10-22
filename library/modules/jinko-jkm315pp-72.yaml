@@ -1,0 +1,16 @@
+id: jinko-jkm315pp-72
+kind: module
+generic: false
+stc_power_w: 315.46
+technology: Multi-c-Si
+vmp_v: 37.2
+imp_a: 8.48
+voc_v: 46.2
+isc_a: 9.01
+temp_coeff_pmax_pct_per_c: -0.41
+bifaciality: 0.0
+area_m2: 1.835
+length_m: 1.924
+width_m: 0.954
+source: California Energy Commission list via SAM library sam-library-cec-modules-2019-03-05.csv
+  (bundled with pvlib 0.13.0), entry Jinko_Solar_Co___Ltd_JKM315PP_72

@@ -1,0 +1,16 @@
+id: solar-frontier-sf160-s
+kind: module
+generic: false
+stc_power_w: 160.44
+technology: Thin Film
+vmp_v: 84.0
+imp_a: 1.91
+voc_v: 110.0
+isc_a: 2.2
+temp_coeff_pmax_pct_per_c: -0.38
+bifaciality: 0.0
+area_m2: 1.047
+length_m: 1.223
+width_m: 0.856
+source: California Energy Commission list via SAM library sam-library-cec-modules-2019-03-05.csv
+  (bundled with pvlib 0.13.0), entry Solar_Frontier_SF160_S

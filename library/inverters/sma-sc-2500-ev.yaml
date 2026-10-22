@@ -1,0 +1,23 @@
+id: sma-sc-2500-ev
+kind: inverter
+ac_rating_kva: 2353.87
+efficiency_curve:
+- - 0.0517
+  - 0.9237
+- - 0.1034
+  - 0.9581
+- - 0.2068
+  - 0.9734
+- - 0.3101
+  - 0.9768
+- - 0.5169
+  - 0.9765
+- - 0.7753
+  - 0.9725
+- - 1.0338
+  - 0.9673
+mppt_count: 1
+temperature_derate: null
+source: California Energy Commission list via SAM library sam-library-cec-inverters-2019-03-05.csv
+  (bundled with pvlib 0.13.0), entry SMA_America__SC_2500_EV_US__550V_; efficiency
+  curve from the Sandia model at Vdco (load = DC power / AC rating)

@@ -62,5 +62,6 @@ def evaluate(path: Path | str, system_load: pd.Series | None = None, price: pd.S
         "cleanings_per_year": pv.get("cleanings_per_year"),
         "storage": {k: v for k, v in disp.items() if k != "hourly"},
         "economics": econ, "inputs": r.used, "warnings": rep.range, "defaults": rep.defaults, "notes": NOTES,
+        "unverified_inputs": sorted({v["origin"] for v in r.used.values() if v.get("status") == "unverified"}),
     }
     return {"result": result, "hourly": h, "pv": pv, "weather": wx}
