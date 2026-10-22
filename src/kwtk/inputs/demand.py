@@ -226,3 +226,8 @@ def build(series: tuple[str, ...] = ("csb-env", "mew-mb")) -> dict:
             "assumption_nonsummer_shape": "demand.base_shape_nonsummer"}
     (OUT / "kuwait-gross-load-reconstructed.json").write_text(json.dumps(meta, indent=2))
     return meta
+
+
+def load_series() -> pd.Series:
+    """The committed reconstruction, hourly MW, Kuwait local time (naive)."""
+    return pd.read_csv(OUT / "kuwait-gross-load-reconstructed.csv.gz", index_col=0, parse_dates=True).load_mw

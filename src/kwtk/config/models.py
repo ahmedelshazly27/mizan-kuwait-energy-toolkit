@@ -52,7 +52,7 @@ class Site(Strict):
     terrain: Terrain = Terrain()
     grid_connection: GridConnection
     weather: str = "era5"
-    soiling_source: Literal["dust-atlas", "flat"] = "dust-atlas"
+    soiling_source: Literal["kuwait-rates", "flat"] = "kuwait-rates"   # monthly Kuwaiti soiling rates + ERA5 rain cleaning
 
 
 # ------------------------------------------------------------------ pv
@@ -66,6 +66,7 @@ class ModuleInline(Strict):
     isc_a: float = Field(gt=0)
     temp_coeff_pmax_pct_per_c: float = Field(lt=0)
     bifaciality: Frac = 0.0
+    area_m2: float | None = Field(None, gt=0, description="module area; gives the efficiency used by the thermal model")
     source: str
 
 
@@ -107,6 +108,7 @@ class Layout(Strict):
     gcr: float | None = Field(None, gt=0, lt=1)
     pitch_m: float | None = Field(None, gt=0)
     module_height_m: float = Field(1.0, ge=0)
+    collector_width_m: Num = "assumption:layout.collector_width_1p"   # row width across the slope (table width)
     modules_per_string: int = Field(gt=0)
     strings: int = Field(gt=0)
 
@@ -123,7 +125,6 @@ class Array(Strict):
     module: Module
     mounting: Mounting
     layout: Layout
-    thermal_model: str = "assumption:thermal.pvsyst_freestanding"
 
 
 class PV(Strict):

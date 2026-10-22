@@ -5,8 +5,18 @@
 #   open      not yet decided; evaluation refuses to run while a used entry is open
 # Plant configurations refer to entries as assumption:<key>.
 assumptions:
+  thermal.pvsyst_uc:                   {value: null, unit: W/m2K, status: open, source: null, note: "PVsyst constant heat-loss factor, fixed-tilt free-standing rows"}
+  thermal.pvsyst_uc_tracker:           {value: null, unit: W/m2K, status: open, source: null, note: "PVsyst constant heat-loss factor, single-axis trackers"}
+  thermal.pvsyst_uv:                   {value: null, unit: W/m2K per m/s, status: open, source: null, note: "PVsyst wind-dependent heat-loss factor"}
+  layout.collector_width_1p:           {value: null, unit: m, status: open, source: null, note: "row (table) width across the slope for a one-module-in-portrait tracker; used when a configuration does not give it"}
+  soiling.kuwait_rate_by_month:        {value: null, unit: "% per day, Jan..Dec", status: open, source: null, note: "soiling loss accumulation rate in Kuwait by month"}
+  soiling.rain_cleaning_threshold:     {value: null, unit: mm per day, status: open, source: null, note: "daily rainfall that cleans modules (Kimber-type model)"}
+  soiling.max_loss:                    {value: null, unit: "%", status: open, source: null, note: "ceiling on accumulated soiling loss"}
+  losses.dc_mismatch_pct:              {value: null, unit: "%", status: open, source: null}
+  losses.dc_wiring_pct:                {value: null, unit: "%", status: open, source: null}
+  fx.kwd_per_usd:                      {value: null, unit: KWD per USD, status: open, source: null}
+  finance.inflation:                   {value: null, unit: "fraction per year", status: open, source: null, note: "USD inflation used to convert real costs to PySAM's nominal schedules"}
   albedo.desert:                       {value: null, unit: fraction, status: open, source: null, note: "ground albedo for Kuwaiti desert sites"}
-  thermal.pvsyst_freestanding:         {value: null, unit: "model id + U-values", status: open, source: null, note: "module temperature model and coefficients for Kuwaiti summer"}
   storage.hvac_load:                   {value: null, unit: kW per MWh, status: open, source: null, note: "battery auxiliary cooling load at Kuwaiti ambient temperatures"}
   ro.specific_energy_seawater:         {value: null, unit: kWh/m3, status: open, source: null, note: "Gulf seawater RO, plant-level specific energy"}
   cleaning.effectiveness:              {value: null, unit: fraction, status: open, source: null, note: "share of accumulated soiling removed per cleaning, by method"}
