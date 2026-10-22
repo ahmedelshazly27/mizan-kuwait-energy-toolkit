@@ -5,40 +5,78 @@ component (site, PV arrays, inverters, storage, desalination, controls, O&M,
 economics) in a YAML file, and the toolkit models how that configuration performs
 under Kuwaiti conditions, then what it does to the national system.
 
-**Status: early.** What exists today:
+Page: <https://mizan-energy.com/research/kuwait-energy-toolkit/> ·
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ahmedelshazly27/mizan-kuwait-energy-toolkit/main?labpath=notebooks)
 
-- the configuration schema (`kuwait-plant/0.1`) with a validator that reports
-  problems as sentences: `kwtk validate configs/examples/*.yaml`
-- the assumptions file, with every entry still open until it is sourced
-- the hourly demand reconstruction (`inputs/demand/`, labelled as a reconstruction):
-  gross system load 2013–2024 and May–July 2025, matching every printed monthly
-  energy and annual peak, validated against MEW's four printed peak-day curves
-  (MAPE 3.8–4.9%); method, results and known defects in
-  [docs/demand-reconstruction.md](docs/demand-reconstruction.md); decisions in
-  [docs/decisions.md](docs/decisions.md)
-- the measured inputs: a snapshot of the Kuwait Electricity Open Dataset in
-  `inputs/dataset/`, unchanged and pinned to a dataset commit by `MANIFEST.yaml`
-  (`kwtk inputs verify`; refresh with `kwtk inputs import --dataset PATH`). Loaders in
-  `kwtk.inputs.dataset` return the dataset's own rows; every series call names its
-  source, and open dataset conflicts are reported, never resolved. The fleet is the
-  unit list from the MEW yearbook station pages (2023 edition: 117 units, 20,250 MW)
-- a gap analysis of PyPSA-Earth's Kuwait defaults (in the Mizan-Energy repository,
-  `research-src/energy-toolkit/GAP_ANALYSIS.md`)
+## Quick start
 
-Resource inputs (Atlite), the evaluation engines
-(pvlib, PySAM, PyPSA, water), notebooks and validation come next, in that order.
-
-## Layout
-
+```sh
+git clone https://github.com/ahmedelshazly27/mizan-kuwait-energy-toolkit && cd mizan-kuwait-energy-toolkit
+uv sync --extra pv --extra econ --extra system
+uv run kwtk validate configs/examples/*.yaml
+uv run kwtk compare configs/examples/shagaya-scale-pv-tracker.yaml configs/examples/shagaya-scale-pv-storage-peak-shaving.yaml
 ```
-inputs/          canonical Kuwait inputs, imported from the electricity dataset; assumptions.yaml
-plant/           configuration model and evaluation engine
-engines/         pvlib (PV), pysam (techno-economics), pypsa (system), water (power-water coupling)
-configs/         plant configurations: reference/ (real plans, with sources), examples/
-library/         modules, inverters and batteries, each with its datasheet source
-src/kwtk/        the package; config/ holds the schema and validator
-notebooks/       end-to-end examples, each under ten minutes on free Colab
-```
+
+Everything runs offline after the clone: the measured data, ERA5 weather for every
+0.25° cell over Kuwait (2013–2024) and the demand reconstruction are in the
+repository. No account, key or network is needed.
+
+## What it does (v0.1)
+
+For one plant file, `kwtk evaluate`:
+
+1. **validates** it against the schema (`kuwait-plant/0.1`) and the modelled ranges, in
+   sentences;
+2. **resolves every input** to a number with its origin (the configuration, the
+   library, or `inputs/assumptions.yaml` with its status and source). It refuses to run on
+   an open assumption, and lists every unverified one in the result;
+3. **simulates PV hour by hour** with pvlib over the chosen ERA5 weather years. It covers
+   row-to-row shading and rear-side irradiance (infinite sheds), tracking with
+   backtracking and wind stow, reflection, Kuwaiti soiling with rain and the cleaning
+   schedule, cell temperature, DC losses, the inverter efficiency curve, clipping, AC
+   losses and outages, all recorded as a loss waterfall;
+4. **dispatches storage** with one of six strategies (export limit, PV firming, peak
+   shaving, arbitrage, reserve, or a user rule), and counts curtailment at the
+   connection and auxiliary loads;
+5. **couples an RO plant** behind the connection to the PV surplus, with water demand
+   following Kuwait's measured monthly seasonality;
+6. **costs it** with NREL PySAM (Single Owner, lifetime hourly generation, explicit
+   degradation). The result includes LCOE and a break-even PPA, checked against an
+   independent capital-recovery calculation;
+7. **places it in Kuwait's system**: a three-zone PyPSA dispatch (HiGHS) of every unit
+   in MEW's 2023 yearbook, with measured fuel cost per station and must-run floors for
+   water production. It reports fuel and fuel cost avoided, which stations the plant
+   displaces, and curtailment by the system.
+
+`kwtk compare A.yaml B.yaml ...` puts several plants side by side.
+
+Read before using the numbers:
+
+- [docs/decisions.md](docs/decisions.md): every modelling judgement (D1–D9).
+- [docs/demand-reconstruction.md](docs/demand-reconstruction.md): the hourly demand
+  model and its known defects.
+- [inputs/assumptions.yaml](inputs/assumptions.yaml) and
+  [docs/assumption-sources.md](docs/assumption-sources.md): every assumed number.
+  Many sources could not be opened from the build environment and are marked
+  `unverified`.
+- [configs/reference/README.md](configs/reference/README.md): why no reference plant
+  is complete yet.
+
+## Notebooks
+
+| | |
+|---|---|
+| [1. Quickstart](notebooks/01-quickstart.ipynb) | validate, evaluate, inputs and their origins |
+| [2. The Kuwaiti inputs](notebooks/02-kuwaiti-inputs.ipynb) | dataset snapshot, fleet, peaks, conflicts, assumptions |
+| [3. Demand reconstruction](notebooks/03-demand-reconstruction.ipynb) | the held-out check against MEW's peak-day curves |
+| [4. Weather and resource](notebooks/04-weather.ipynb) | the ERA5 grid, irradiance across Kuwait |
+| [5. PV yield and losses](notebooks/05-pv-losses.ipynb) | loss waterfall; the Shagaya Phase I approximation |
+| [6. Storage and controls](notebooks/06-storage-and-controls.ipynb) | export limit vs peak shaving |
+| [7. Economics](notebooks/07-economics.ipynb) | what the capex source does to LCOE |
+| [8. System and water](notebooks/08-system-and-water.ipynb) | fuel avoided, displaced stations, RO coupling |
+
+Each opens in Colab from the badge at its top. `uv run python scripts/make_notebooks.py`
+rebuilds and re-executes them.
 
 ## Network: zonal, deliberately
 
