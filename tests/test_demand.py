@@ -32,3 +32,10 @@ def test_years_reach_printed_peak(load):
 
 def test_held_out_curves_reported():
     assert len(META["validation_peak_days"]) == 4
+
+
+def test_csb_and_yearbook_monthly_energy_agree():
+    # D4 rests on this: if it ever fails, revisit the source choice
+    csb, yb = d.monthly_energy(("csb-env",)), d.monthly_energy(("mew-yb",))
+    both = csb.index.intersection(yb.index)
+    assert len(both) >= 48 and (abs(yb[both] / csb[both] - 1) < 1e-6).all()

@@ -39,3 +39,21 @@ inputs/assumptions.yaml), flagged in every output that uses those hours, until
 MEW hourly data is obtained. Hourly data for research has been supplied by MEW on
 request (papers cited in docs/demand-reconstruction.md); a request is the way to
 close this assumption.
+
+## D4 — Monthly energy source for the demand reconstruction (2026-10-22, Claude, delegated by the owner)
+
+**CSB Environment Statistics for 2013–2024; MEW Monthly Statistics Books for
+2025.** CSB is the only series covering every month from 2013 to 2024. Where the
+MEW yearbooks print the same quantity (national gross generation by month,
+2020–2023), the two agree exactly in all 48 months. The dataset's open conflicts
+are all at plant level or in annual history tables, so this choice changes no
+hourly value. A test (`tests/test_demand.py`) fails if a future dataset build
+breaks that agreement, and the decision must then be revisited.
+
+## D5 — Request hourly load data from MEW (2026-10-22, Claude, delegated by the owner)
+
+**Yes.** One year of hourly system load would replace the two weakest parts of
+the reconstruction with measurements: the night shape and October–April. It would
+also test the peak overshoot. The request is drafted in
+[docs/mew-data-request.md](mew-data-request.md) for the owner to send. Until data
+arrives, D3's proxy stands.
