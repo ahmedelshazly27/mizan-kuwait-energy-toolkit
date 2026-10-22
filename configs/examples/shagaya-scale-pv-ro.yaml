@@ -1,0 +1,63 @@
+# EXAMPLE, not a real design. A single-axis tracker plant at the scale of the Shagaya
+# Phase III Zone 1 tender (1,100 MW AC). Every design number below (string layout,
+# GCR, inverter count, export limit) is the example author's choice; modules and
+# inverters are real products from the CEC list (2019 vintage, so module power is low
+# by today's standards); everything else refers to the assumptions file.
+schema: kuwait-plant/0.1
+id: shagaya-scale-pv-ro
+name: "Example: 1.1 GW PV with a 300,000 m3/day RO plant behind the connection"
+status: example
+description: >-
+  The tracker plant with a seawater RO plant behind its connection (at a coastal
+  site in practice: this is a coupling example, not a siting proposal). The RO plant
+  follows PV surplus into a one-day product-water store and imports from the grid only
+  to hold its minimum load or meet the day's water demand. The economics cover the PV
+  only: RO capital cost and the value of the water are not priced in v0.1, and the RO's
+  use of PV shows up as export forgone.
+sources:
+  - title: "Shagaya site coordinates: Al Shagaya Solar Energy Park in PyPSA-Earth's powerplants.csv (powerplantmatching / Global Energy Monitor, CC BY 4.0)"
+  - title: "Zone 1 scale (1,100 MW): KAPP Shagaya Phase III tender, as reported (not verified from the build environment)"
+site:
+  location: {lat: 29.2055, lon: 47.0524}
+  grid_connection: {point: example-400kv, voltage_kv: 400, export_limit_mw: 1100, import_limit_mw: 80}
+pv:
+  arrays:
+    - id: a1
+      dc_capacity_mwp: 1428.98
+      module: {ref: "library:jinko-jkm315pp-72"}
+      mounting: {type: single_axis, axis_azimuth_deg: 180, max_angle_deg: 55, backtracking: true,
+                 stow: {wind_speed_m_s: 18, angle_deg: 0}}
+      layout: {gcr: 0.33, module_height_m: 1.5, collector_width_m: 1.924, modules_per_string: 22, strings: 205904}
+inverters:
+  topology: central
+  dc_ac_ratio: 1.30
+  transformer_losses_pct: 1.0
+  ac_collection_losses_pct: 1.0
+  units:
+    - {array: a1, ref: "library:sma-sc-2500-ev", count: 467}
+desalination:
+  blocks:
+    - id: ro1
+      process: reverse_osmosis
+      capacity_m3_per_day: 300000
+      min_load_fraction: 0.4
+      ramp_pct_per_hour: 20
+      water_storage_m3: 300000
+controls:
+  strategy: export_limit
+om:
+  cleaning:
+    method: robotic_dry
+    schedule: {type: interval, interval_days: 14}
+economics:
+  base_year: 2026
+  life_years: 25
+  capex:
+    pv_total_usd_per_kwac: assumption:capex.pv_atb2025_usd_per_kw
+  opex:
+    pv_fixed_usd_per_kw_year: assumption:opex.pv_atb2025_usd_per_kw_year
+  finance: {structure: ppa, wacc_real: assumption:wacc.kuwait_ipp}
+  revenue: {}
+evaluation:
+  years: [2019, 2020, 2021, 2022, 2023]
+  system_context: kuwait-2023

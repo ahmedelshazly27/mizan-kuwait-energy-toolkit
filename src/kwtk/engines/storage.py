@@ -188,15 +188,23 @@ def dispatch(cfg: PlantConfig, pv: dict, r: Resolver, system_load: pd.Series | N
     else:
         aux = np.zeros(n)
 
-    gross = p_pv + batt - aux                            # at the POI, before the export limit
+    desal = np.zeros(n)
+    water_out = None
+    if cfg.desalination:                                 # RO behind the connection takes surplus first
+        from . import water
+        water_out = water.run(cfg, pd.Series(p_pv + batt - aux, index=idx), r)
+        desal = water_out.pop("hourly_load_mw").values
+    gross = p_pv + batt - aux - desal                    # at the POI, before the export limit
     export = np.clip(gross, None, limit)
     curtailed = np.clip(gross - limit, 0, None)
     imported = np.clip(-export, 0, None)
     export = np.clip(export, 0, None)
-    res = pd.DataFrame({"pv_ac": p_pv, "battery": batt, "charge_from_clipping": ch_from_clip, "aux": aux,
+    res = pd.DataFrame({"pv_ac": p_pv, "battery": batt, "charge_from_clipping": ch_from_clip, "aux": aux, "desal": desal,
                         "export": export, "import": imported, "curtailed": curtailed,
                         "soc_mwh": soc[1:]}, index=idx)
     out = {"hourly": res}
+    if water_out is not None:
+        out["water"] = water_out
     if b:
         throughput = (res.battery.clip(lower=0).sum())
         years = len(set(idx.year))
