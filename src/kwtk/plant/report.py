@@ -47,6 +47,9 @@ ROWS = [  # label, getter
     ("Project IRR, %", lambda r: r["economics"]["irr_pct"]),
     ("System peak after, MW", lambda r: r["storage"].get("system_peak_after", np.nan)),
     ("System peak after PV alone, MW", lambda r: r["storage"].get("system_peak_after_pv_only", np.nan)),
+    ("System: fuel cost avoided, KD/MWh", lambda r: (r.get("system_context") or {}).get("fuel_cost_avoided_kd_per_mwh", np.nan)),
+    ("System: fuel avoided, B Btu/yr", lambda r: (r.get("system_context") or {}).get("fuel_avoided_bbtu", np.nan)),
+    ("System: curtailment, MWh/yr", lambda r: (r.get("system_context") or {}).get("system_curtailment_mwh", np.nan)),
     ("Assumptions used", lambda r: sum(1 for v in r["inputs"].values() if str(v.get("origin", "")).startswith("assumption:"))),
     ("Warnings", lambda r: len(r["warnings"])),
 ]

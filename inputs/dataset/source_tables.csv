@@ -38,6 +38,8 @@ mew-yb-2023,generation-monthly,Generation Of Electrical Energy (Million WH) Duri
 mew-yb-2023,station-use-monthly,Auxiliary Units Consumed By Power Stations' (Million Wh) During 2023,,Million Wh,,[205]
 mew-yb-2023,net-export-monthly,Net Export Of Electrical Energy (Million WH) During 2023,,Million WH,,[214]
 mew-yb-2023,peak-day-load,System loads on the day of the yearly peak (half-hourly),,MW,,[76]
+mew-yb-2023,regional-peak,Loads of Kuwait's areas during the yearly peak load,,MW,,[86]
+mew-yb-2023,station-fuel-history,Consumption of fuel energy & fuel cost of power stations,,MW,,[188]
 mew-yb-2023,station-units,"Station pages: units, date of commissioning and installed capacity",,MW,,"[35, 36, 37, 38, 39, 40, 41, 42, 43, 46, 47, 50, 51]"
 mew-mb-2025-05,generation-daily,Generation of electrical energy (MWhr) during May 2025,,MWhr,,[17]
 mew-mb-2025-05,export-daily,Export of electrical energy (MWhr) during May 2025,,MWhr,,[25]
@@ -139,3 +141,5 @@ csb-env-2024,117,Stations Consumption of Gas Oil (Barrel) by Month and Station,�
 csb-env-2024,118,Consumption of Crude Oil (Barrel) by Month and Station,استهلاك المحطات من النفط الخام (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من النفط الخام,
 csb-env-2024,119,Stations Consumption of Heavy Oil (Barrel) by Month and Station,استهلاك المحطات من الزيت الثقيل (برميل) حسب الشهر والمحطة,Barrel,استهلاك المحطات من الزيت الثقيل,
 undata-edata-kw-el,EDATA,"Energy Statistics Database: Kuwait, electricity",,,,
+mew-wyb-2020,distilled-monthly,Gross and net production of distilled water (MIG),,MW,,[170]
+mew-wyb-2021,distilled-monthly,Gross and net production of distilled water (MIG),,MW,,[150]

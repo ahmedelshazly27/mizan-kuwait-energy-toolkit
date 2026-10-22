@@ -134,11 +134,11 @@ assumptions:
 
   # ---------------------------------------------------------------- water
   ro.specific_energy_seawater:
-    value: null
+    value: 5.34
     unit: kWh/m3
-    status: open
-    source: null
-    note: "To be derived from MEW/CSB RO electricity use and production (water yearbooks); literature gives 3.6-5.4 kWh/m3 for Gulf SWRO (unverified)."
+    status: sourced
+    source: "Derived from MEW data in the dataset, 2021: electricity used by the three seawater RO plants (MEW Electrical Energy yearbook 2021, desalination use: Shuwaikh RO 124,868, Doha West RO 296,050, Az-Zour South RO 87,252 MWh) over their net production (MEW Water yearbook 2021: 21.97, 54.45, 18.69 million m3)"
+    note: "Plant by plant: Shuwaikh 5.68, Doha West 5.44, Az-Zour South 4.67 kWh/m3 (2020: 5.68, 5.15, 4.88). Includes everything the RO plant draws, not only the high-pressure pumps."
 
   # ---------------------------------------------------------------- finance and costs
   wacc.kuwait_ipp:

@@ -42,6 +42,20 @@ def evaluate(path: Path | str, system_load: pd.Series | None = None, price: pd.S
         system_load.index = system_load.index + pd.Timedelta(minutes=30)
     disp = storage.dispatch(cfg, pv, r, system_load=system_load, price=price)
     econ = economics.run(cfg, pv if cfg.pv else None, disp, r, pv.get("cleanings_per_year", 0.0))
+    grid = None
+    if cfg.evaluation.system_context:
+        import contextlib
+        import io
+        import logging
+        from ..engines import system
+        yrs = [y for y in years if 2019 <= y <= 2023] or [2023]
+        exp = disp["hourly"].export.copy()
+        exp.index = exp.index.tz_convert("Asia/Kuwait").tz_localize(None).floor("h")
+        logging.getLogger("linopy").setLevel(logging.ERROR)
+        logging.getLogger("pypsa").setLevel(logging.ERROR)
+        with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            grid = system.interaction(exp, cfg.site.location.lat, cfg.site.location.lon, max(yrs),
+                                      float(r.assumption("fx.kwd_per_usd", "system_context.fx")))
     h = disp["hourly"]
     by_year = h.groupby(h.index.year).sum()
     energy = pd.DataFrame({
@@ -61,6 +75,7 @@ def evaluate(path: Path | str, system_load: pd.Series | None = None, price: pd.S
         "mean_soiling_loss_pct": float((1 - pv["soiling_ratio"]).mean() * 100) if cfg.pv else None,
         "cleanings_per_year": pv.get("cleanings_per_year"),
         "storage": {k: v for k, v in disp.items() if k != "hourly"},
+        "system_context": grid,
         "economics": econ, "inputs": r.used, "warnings": rep.range, "defaults": rep.defaults, "notes": NOTES,
         "unverified_inputs": sorted({v["origin"] for v in r.used.values() if v.get("status") == "unverified"}),
     }

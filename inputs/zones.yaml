@@ -1,0 +1,75 @@
+# Zonal structure of the system model (decision D7, docs/decisions.md). Three zones by
+# governorate, as in GADM's level-1 shapes used by PyPSA-Earth:
+#   north    Al Jahra
+#   central  Al Asimah (Capital), Hawalli, Al Farwaniyah
+#   south    Al Ahmadi, Mubarak Al-Kabeer
+zones: [north, central, south]
+
+# Power stations (dataset plant ids) by zone, from their coordinates in PyPSA-Earth's
+# powerplants.csv (Global Energy Monitor / powerplantmatching) joined to the GADM shapes.
+# Doha East and Doha West fall in Al Jahra's GADM shape (their governorate could not be
+# confirmed from an official source).
+stations:
+  sabiya: north
+  doha-east: north
+  doha-west: north
+  shagaya: north
+  shuwaikh: central
+  shuaiba-north: south
+  shuaiba-south: south
+  zour-south: south
+  zour-north: south
+
+# Load shares: MEW Statistical Year Book Electrical Energy 2023, p86, "Loads of Kuwait
+# areas during the yearly peak load" (dataset table regional-peak), 2 Aug 2023. Each
+# numbered row is assigned to the zone where most of its listed districts lie, read
+# from the page image (the Arabic text layer is unusable). Row 1 (the generating
+# stations' own load) is split by station capacity in each zone. The shares are of the
+# peak and are applied to every hour (a stated simplification).
+area_rows:
+  1:  {zone: stations, reading: "generating stations' own load"}
+  2:  {zone: south,   reading: "Az-Zour South station: Az-Zour, Khiran, Nuwaiseeb, Khiran Pearl, Sabah Al-Ahmad sea pumping"}
+  3:  {zone: central, reading: "Doha East station: parts of Ardiya, Doha, Sulaibiya, Firdous, Andalus, Sulaibikhat, Riggae, Jahra, Qairawan"}
+  4:  {zone: north,   reading: "Sulaibiya, Umm Qadir, Manaqish"}
+  5:  {zone: north,   reading: "Jahra, Oyoun, Taima, Qasr, Naseem, Jaber Al-Ahmad base, Shagaya, Jahra hospital"}
+  6:  {zone: north,   reading: "Saad Al-Abdullah, Naseem"}
+  7:  {zone: north,   reading: "Mutlaa housing area"}
+  8:  {zone: north,   reading: "Raudhatain, Sabriya, part of Ratqa"}
+  9:  {zone: north,   reading: "Jaber Al-Ahmad city, part of Sulaibikhat"}
+  10: {zone: central, reading: "new 2022 station, part of Firdous"}
+  11: {zone: central, reading: "Sabah Al-Nasser, part of Ardiya, Jiwan, part of Riggae"}
+  12: {zone: central, reading: "part of Omariya, Shuwaikh industrial, Rai, part of Jleeb"}
+  13: {zone: central, reading: "West Jleeb, South Ardiya, Ishbiliya, airport, Shadadiya"}
+  14: {zone: central, reading: "West Abdullah Al-Mubarak"}
+  15: {zone: central, reading: "South Surra, Hateen, Salam, Zahra, Siddiq, Shuhada"}
+  16: {zone: central, reading: "Sixth Ring Road, Salwa, Sabah Al-Salem, part of Rumaithiya, Mishref, West Bayan"}
+  17: {zone: central, reading: "Salmiya, Sharq Hawalli, part of Rumaithiya, Bayan, Jabriya, part of Hawalli"}
+  18: {zone: central, reading: "Jabriya, Dasma, Safarat, part of Hawalli, Surra"}
+  19: {zone: central, reading: "Siddiq, Qadsiya, Surra, part of Hawalli, Jabriya, Rawda, Daiya, Nuzha, Abdullah Al-Salem, Faiha"}
+  20: {zone: central, reading: "Khaitan, Adailiya, Khaldiya, Qurtuba, Yarmouk, part of Farwaniya, part of the airport, old Rabiya, fairgrounds"}
+  21: {zone: central, reading: "Jamia, part of Farwaniya, part of South Ardiya, part of Jleeb"}
+  22: {zone: central, reading: "Watiya, Shuwaikh, Shuwaikh industrial, port, Jamia, medical institute, flour mills, Kaifan, Shamiya"}
+  23: {zone: central, reading: "Kaifan, Shamiya, Faiha"}
+  24: {zone: central, reading: "City, part of the green belt, Dasman, Amiri, Mirqab, Sharq, Sawaber, Maqwa, Abdullah Al-Salem, Bneid Al-Gar"}
+  25: {zone: central, reading: "green belt, part of Mirqab, Amiri, Qibla"}
+  26: {zone: south,   reading: "part of Sabahiya, Dhahr, Fintas, Mahboula, Abu Halifa, part of Riqqa, Uqaila"}
+  27: {zone: south,   reading: "Abu Fatira, part of Messila, Uqaila, Fintas"}
+  28: {zone: south,   reading: "part of Messila, Sabah Al-Salem, Funaitees"}
+  29: {zone: south,   reading: "Sabhan, middle area, part of South Sabah Al-Salem"}
+  30: {zone: south,   reading: "South Sabah Al-Salem, Funaitees, part of Qurain"}
+  31: {zone: south,   reading: "Ahmadi, Fahad Al-Ahmad, Mangaf, part of Sabahiya, Hadiya, part of Riqqa, Abu Halifa"}
+  32: {zone: south,   reading: "Shuaiba industrial (non-heavy), Sabahiya, Zour, Khiran, Mina Abdullah"}
+  33: {zone: south,   reading: "Shuaiba heavy industry: KNPC refineries, Mina Al-Ahmadi, petrochemicals, ports"}
+  34: {zone: south,   reading: "Umm Al-Hayman (new 2022)"}
+  35: {zone: south,   reading: "Sabah Al-Ahmad"}
+  36: {zone: south,   reading: "Wafra"}
+  37: {zone: south,   reading: "Khiran"}
+
+# Transfer capacity between zones (MVA): the sum of line ratings crossing each zone
+# boundary in PyPSA-Earth's base network for Kuwait (lines from Overture Maps, built
+# from OpenStreetMap; ratings are PyPSA-Earth's standard line types, not MEW's
+# ratings). Aggregated here; no line geometry is redistributed.
+interfaces:
+  central-north: 5530
+  central-south: 15520
+  north-south: 13196

@@ -57,3 +57,42 @@ the reconstruction with measurements: the night shape and October–April. It wo
 also test the peak overshoot. The request is drafted in
 [docs/mew-data-request.md](mew-data-request.md) for the owner to send. Until data
 arrives, D3's proxy stands.
+
+## D6 — Assumptions whose sources could not be opened (2026-10-22, Claude, delegated)
+
+The build environment's network blocks most publishers, so many cited values were
+seen only in search summaries. Such values enter `inputs/assumptions.yaml` with
+status **unverified**, their full citation and the note that the document was not
+opened. They are used, and every result lists them (`unverified_inputs`) so a reader
+knows which numbers to check. Values with no citable source stay `open`, and
+evaluation refuses to run on them.
+
+## D7 — Zones and their load shares (2026-10-22, Claude, delegated)
+
+Three zones by governorate (north: Jahra; central: Capital, Hawalli, Farwaniya;
+south: Ahmadi, Mubarak Al-Kabeer). Load is split by MEW's supply-area loads at the
+2023 peak (yearbook p86), each area assigned by reading its districts on the page
+image (inputs/zones.yaml lists every row). The stations' own load is split by
+station capacity. The peak-day shares apply to every hour. Interfaces are PyPSA-Earth's
+line ratings summed across zone boundaries (5.5, 15.5 and 13.2 GVA), standard line
+types rather than MEW ratings. Rejected: six governorate zones (two have no
+transmission buses in the network), and population shares (the MEW table measures
+load directly).
+
+## D8 — Merit order from measured average fuel cost (2026-10-22, Claude, delegated)
+
+Each station's marginal cost is its 2023 fuel cost over its 2023 gross generation
+(MEW yearbook p188 and the generation history), and fuel avoided uses its fuel
+energy per MWh. These are averages, and at cogeneration stations they include the
+fuel that raises steam for distillation, so they overstate the electricity-only cost
+of those stations. No published source splits fuel between power and water by
+station.
+
+## D9 — Power-water coupling as a must-run floor (2026-10-22, Claude, delegated)
+
+A station with thermal distillation must generate, every hour, at least its lowest
+monthly average output in 2023: the output it held while producing water. That
+floor (about 5.6 GW in total) is what makes solar curtailment appear on mild days.
+RO plants are electricity load inside the system load. Rejected: a steam-per-water
+coupling, because no published figure gives steam or electricity per unit of
+distilled water by station.
