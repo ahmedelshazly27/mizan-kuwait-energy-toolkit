@@ -25,7 +25,7 @@ NOTES = [
 
 
 def evaluate(path: Path | str, system_load: pd.Series | None = None, price: pd.Series | None = None,
-             resolver: Resolver | None = None) -> dict:
+             resolver: Resolver | None = None, system_hourly: bool = False) -> dict:
     rep = validate(path)
     if not rep.ok:
         raise ValueError("configuration is not valid:\n" + rep.text())
@@ -55,7 +55,8 @@ def evaluate(path: Path | str, system_load: pd.Series | None = None, price: pd.S
         logging.getLogger("pypsa").setLevel(logging.ERROR)
         with contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
             grid = system.interaction(exp, cfg.site.location.lat, cfg.site.location.lon, max(yrs),
-                                      float(r.assumption("fx.kwd_per_usd", "system_context.fx")))
+                                      float(r.assumption("fx.kwd_per_usd", "system_context.fx")), hourly=system_hourly)
+        system_hourly_out = grid.pop("hourly", None)
     h = disp["hourly"]
     by_year = h.groupby(h.index.year).sum()
     energy = pd.DataFrame({
@@ -79,4 +80,7 @@ def evaluate(path: Path | str, system_load: pd.Series | None = None, price: pd.S
         "economics": econ, "inputs": r.used, "warnings": rep.range, "defaults": rep.defaults, "notes": NOTES,
         "unverified_inputs": sorted({v["origin"] for v in r.used.values() if v.get("status") == "unverified"}),
     }
-    return {"result": result, "hourly": h, "pv": pv, "weather": wx}
+    out = {"result": result, "hourly": h, "pv": pv, "weather": wx, "config": cfg}
+    if cfg.evaluation.system_context and system_hourly:
+        out["system_hourly"] = system_hourly_out
+    return out

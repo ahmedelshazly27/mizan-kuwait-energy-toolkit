@@ -116,7 +116,8 @@ def zone_of(lat: float, lon: float) -> str:
     return min(d, key=d.get)
 
 
-def interaction(plant_export_local: pd.Series, lat: float, lon: float, year: int, fx: float) -> dict:
+def interaction(plant_export_local: pd.Series, lat: float, lon: float, year: int, fx: float,
+                hourly: bool = False) -> dict:
     """Solve the year without and with the plant; plant_export_local is hourly MW in
     Kuwait local time (naive), the plant's export at its connection."""
     zn = zone_of(lat, lon)
@@ -134,6 +135,10 @@ def interaction(plant_export_local: pd.Series, lat: float, lon: float, year: int
             "plant_dispatched_mwh": float(g["plant"].sum()) if "plant" in g else 0.0,
             "max_interface_loading": {l: float((n.lines_t.p0[l].abs() / n.lines.s_nom[l]).max()) for l in n.lines.index},
         }
+        if hourly:
+            out[case]["dispatch"] = g[thermal + (["plant"] if "plant" in g else [])].copy()
+            out[case]["flows"] = n.lines_t.p0.copy()
+            out[case]["load"] = n.loads_t.p_set.sum(axis=1)
     w, wo = out["with"], out["without"]
     offered = float(plant_export_local[plant_export_local.index.year == year].clip(lower=0).sum())
     return {
@@ -145,4 +150,5 @@ def interaction(plant_export_local: pd.Series, lat: float, lon: float, year: int
         "displaced_mwh_by_station": {c: wo["by_station_mwh"][c] - w["by_station_mwh"].get(c, 0) for c in wo["by_station_mwh"]},
         "load_shed_mwh": {"without": wo["shed_mwh"], "with": w["shed_mwh"]},
         "max_interface_loading": w["max_interface_loading"],
+        **({"hourly": {"without": wo["dispatch"], "with": w["dispatch"], "flows_with": w["flows"], "load": w["load"]}} if hourly else {}),
     }

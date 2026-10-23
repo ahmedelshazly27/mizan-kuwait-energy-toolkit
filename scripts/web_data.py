@@ -21,8 +21,121 @@ def r(x, d=1):
     return None if x is None or (isinstance(x, float) and x != x) else round(float(x), d)
 
 
+YEAR = 2023
+
+
+def _local(series: pd.Series) -> pd.Series:
+    """UTC hour-midpoint series -> Kuwait local hours of YEAR (8760 values)."""
+    x = series.copy()
+    x.index = x.index.tz_convert("Asia/Kuwait").tz_localize(None).floor("h")
+    x = x[x.index.year == YEAR]
+    return x.reindex(pd.date_range(f"{YEAR}-01-01", f"{YEAR}-12-31 23:00", freq="h")).fillna(0)
+
+
+def _ints(x, scale=1):
+    return [int(round(v * scale)) for v in x]
+
+
+def components(run) -> list:
+    """The plant's parts, for the diagram: what each is, from the configuration."""
+    cfg, lib = run["config"], None
+    from kwtk.config.validate import load_library
+    lib = load_library()
+    out = []
+    for a in (cfg.pv.arrays if cfg.pv else []):
+        mod = a.module.inline.model_dump() if a.module.inline else lib[a.module.ref.split(":", 1)[1]]
+        n_mod = a.layout.modules_per_string * a.layout.strings
+        out.append({"kind": "array", "id": a.id, "mwp": a.dc_capacity_mwp, "modules": n_mod,
+                    "module": (a.module.ref or "inline").replace("library:", ""), "module_w": mod["stc_power_w"],
+                    "technology": mod["technology"], "mounting": a.mounting.type,
+                    "tilt": a.mounting.tilt_deg, "max_angle": a.mounting.max_angle_deg, "gcr": a.layout.gcr})
+    if cfg.inverters:
+        for u in cfg.inverters.units:
+            inv = u.inline.model_dump() if u.inline else lib[u.ref.split(":", 1)[1]]
+            out.append({"kind": "inverter", "array": u.array, "count": u.count, "model": (u.ref or "inline").replace("library:", ""),
+                        "mw": r(inv["ac_rating_kva"] * u.count / 1000, 1), "dc_ac": cfg.inverters.dc_ac_ratio})
+    for b in (cfg.storage.blocks if cfg.storage else []):
+        out.append({"kind": "battery", "id": b.id, "mw": b.power_mw, "mwh": b.energy_mwh, "chemistry": b.chemistry,
+                    "coupling": b.coupling, "strategy": cfg.controls.strategy})
+    for d in (cfg.desalination.blocks if cfg.desalination else []):
+        out.append({"kind": "ro", "id": d.id, "m3_day": d.capacity_m3_per_day, "store_m3": d.water_storage_m3})
+    g = cfg.site.grid_connection
+    out.append({"kind": "connection", "kv": g.voltage_kv, "export_mw": g.export_limit_mw, "import_mw": g.import_limit_mw})
+    return out
+
+
+def visuals(runs):
+    import numpy as np
+    from kwtk.engines import system
+    wdir = ROOT / "web" / "plants"
+    wdir.mkdir(parents=True, exist_ok=True)
+    base_written = False
+    st = system.station_table(YEAR)
+    z = system.zones()
+    for k, run in runs.items():
+        h, pv = run["hourly"], run["pv"]
+        arrays = pv["arrays"]
+        dc = sum(a.pdc_net for a in arrays.values()) if arrays else h.pv_ac * 0
+        ac_raw = sum(a.pac_before_clip for a in arrays.values()) if arrays else h.pv_ac * 0
+        ac = sum(a.pac for a in arrays.values()) if arrays else h.pv_ac * 0
+        poa = (sum(a.poa_front * run["config"].pv.arrays[i].dc_capacity_mwp for i, a in enumerate(arrays.values()))
+               / sum(x.dc_capacity_mwp for x in run["config"].pv.arrays)) if arrays else h.pv_ac * 0
+        tcell = list(arrays.values())[0].t_cell if arrays else h.pv_ac * 0
+        wx = run["weather"]
+        b = run["config"].storage
+        emax = sum(x.energy_mwh for x in b.blocks) if b else 0
+        series = {
+            "poa_w_m2": _ints(_local(poa)), "t_air_c": _ints(_local(wx.temp_air), 10), "t_cell_c": _ints(_local(tcell), 10),
+            "dc_mw": _ints(_local(dc)), "ac_mw": _ints(_local(ac)), "clipped_mw": _ints(_local(ac_raw - ac)),
+            "pv_mw": _ints(_local(h.pv_ac)), "battery_mw": _ints(_local(h.battery)),
+            "soc_pct": _ints(_local(h.soc_mwh / emax * 100)) if emax else None,
+            "aux_mw": _ints(_local(h.aux), 10), "desal_mw": _ints(_local(h.desal)) if "desal" in h else None,
+            "export_mw": _ints(_local(h.export)), "curtailed_mw": _ints(_local(h.curtailed)),
+            "import_mw": _ints(_local(h["import"])),
+        }
+        soil = pv.get("soiling_ratio")
+        daily = None
+        if soil is not None:
+            sl = _local(soil).groupby(lambda t: t.dayofyear).mean()
+            rain = _local(wx.precip_mm).groupby(lambda t: t.dayofyear).sum()
+            daily = {"soiling_pct": [r((1 - v) * 100, 2) for v in sl.values], "rain_mm": [r(v, 1) for v in rain.values]}
+        out = {"id": k, "year": YEAR, "components": components(run), "hourly": series, "daily": daily,
+               "annual_gwh": {key: r(v / 1e3) for key, v in pd.DataFrame(run["result"]["energy_by_year"]).mean(numeric_only=True).items() if key.endswith("_mwh")},
+               "waterfall_gwh": {key: r(v / 1e3) for key, v in pd.DataFrame(run["result"]["waterfall_mwh"]).mean(numeric_only=True).items() if key != "year"}}
+        sh = run.get("system_hourly")
+        if sh is not None:
+            loc = lambda df: df.set_axis(pd.DatetimeIndex(df.index), axis=0)
+            w = loc(sh["with"])
+            out["system_with"] = {c: _ints(w[c].values) for c in w.columns}
+            out["flows_with"] = {c: _ints(loc(sh["flows_with"])[c].values) for c in sh["flows_with"].columns}
+            if not base_written:
+                wo = loc(sh["without"])
+                base = {"year": YEAR, "stations": [c for c in wo.columns],
+                        "load_mw": _ints(sh["load"].values), "without": {c: _ints(wo[c].values) for c in wo.columns},
+                        "floor_mw": {c: r(st.loc[c, "min_monthly_avg_mw"], 0) for c in wo.columns},
+                        "kd_per_mwh": {c: r(st.loc[c, "kd_per_mwh"], 2) for c in wo.columns},
+                        "zone": {c: z["stations"][c] for c in wo.columns}}
+                (ROOT / "web" / "system.json").write_text(json.dumps(base))
+                base_written = True
+        (wdir / f"{k}.json").write_text(json.dumps(out, default=float))
+    # map: annual GHI per ERA5 cell, stations, zones, interfaces
+    from kwtk.inputs import era5
+    cells = []
+    for la, lo in era5.CELLS:
+        w = era5.site_weather(la, lo, [2019, 2020, 2021, 2022, 2023])
+        cells.append({"lat": la, "lon": lo, "ghi": r(w.ghi.sum() / 1000 / 5, 0)})
+    fleet = __import__("kwtk.inputs.dataset", fromlist=["fleet"]).fleet("mew-yb-2023")
+    caps = fleet.groupby("plant_id").capacity_mw.sum()
+    stations = [{"id": s_, "lat": c[0], "lon": c[1], "mw": r(caps.get(s_), 0), "zone": z["stations"][s_]}
+                for s_, c in z["station_coords"].items()]
+    (ROOT / "web" / "map.json").write_text(json.dumps({"cells": cells, "stations": stations, "interfaces": z["interfaces"],
+                                                       "zone_of_governorate": {"KW-JA": "north", "KW-KU": "central", "KW-HA": "central",
+                                                                               "KW-FA": "central", "KW-AH": "south", "KW-MU": "south"}}))
+
+
 def main():
-    runs = {k: evaluate(ROOT / "configs" / "examples" / f"{k}.yaml") for k in EXAMPLES}
+    runs = {k: evaluate(ROOT / "configs" / "examples" / f"{k}.yaml", system_hourly=True) for k in EXAMPLES}
+    visuals(runs)
     ex = []
     for k, run in runs.items():
         res = run["result"]

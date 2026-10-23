@@ -73,3 +73,17 @@ interfaces:
   central-north: 5530
   central-south: 15520
   north-south: 13196
+
+# Station coordinates for maps only (not used in the dispatch): PyPSA-Earth's
+# powerplants.csv for Kuwait (Global Energy Monitor via powerplantmatching, CC BY 4.0).
+# Shuaiba North and South share one coordinate in that source. Doha East is not in it
+# and is left off maps rather than placed by guess.
+station_coords:
+  sabiya: [29.5642, 48.1707]
+  shuwaikh: [29.3504, 47.9400]
+  zour-north: [28.7135, 48.3806]
+  zour-south: [28.7055, 48.3701]
+  shuaiba-north: [29.0359, 48.1536]
+  shuaiba-south: [29.0359, 48.1536]
+  doha-west: [29.3652, 47.7873]
+  shagaya: [29.2055, 47.0524]
